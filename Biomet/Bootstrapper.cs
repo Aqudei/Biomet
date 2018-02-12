@@ -35,14 +35,21 @@ namespace Biomet
         protected override void Configure()
         {
             _simpleContainer.Instance(_simpleContainer);
+
             _simpleContainer.PerRequest<ShellViewModel>();
+            _simpleContainer.PerRequest<AddEditEmployeeViewModel>();
+            _simpleContainer.PerRequest<EmployeesViewModel>();
+            _simpleContainer.PerRequest<DTRViewModel>();
+
+            _simpleContainer.Singleton<IWindowManager, WindowManager>();
+            _simpleContainer.Singleton<IEventAggregator, EventAggregator>();
+
             base.Configure();
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
         {
-            base.OnStartup(sender, e);
-
+            DisplayRootViewFor<ShellViewModel>();
         }
     }
 }

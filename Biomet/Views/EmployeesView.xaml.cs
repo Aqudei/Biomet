@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Biomet.Views
 {
     /// <summary>
-    /// Interaction logic for ShellView.xaml
+    /// Interaction logic for EmployeesView.xaml
     /// </summary>
-    public partial class ShellView 
+    public partial class EmployeesView : UserControl
     {
-        public ShellView()
+        public EmployeesView()
         {
             InitializeComponent();
         }

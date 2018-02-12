@@ -11,7 +11,7 @@ namespace Biomet.Models.Entities
     {
         public double RatePerHour { get; set; }
 
-        protected override void DeterminePaymentPeriod(PayCheck payCheck)
+        protected override void OnDeterminePaymentPeriod(PayCheck payCheck)
         {
             payCheck.StartOfPaymentPeriod = new DateTime(payCheck.PaymentDate.Year, payCheck.PaymentDate.Month, 1);
         }
@@ -20,8 +20,9 @@ namespace Biomet.Models.Entities
         {
             return date.IsLastDayOfMonth();
         }
+        
 
-        protected override void MakePayment(PayCheck payCheck)
+        protected override void OnMakePayment(PayCheck payCheck)
         {
             
         }

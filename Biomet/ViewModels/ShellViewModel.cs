@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,21 @@ using System.Threading.Tasks;
 
 namespace Biomet.ViewModels
 {
-    class ShellViewModel
+    class ShellViewModel : Conductor<object>
     {
+        public ShellViewModel()
+        {
+            OpenDTR();
+        }
+
+        public void OpenManager()
+        {
+            ActivateItem(IoC.Get<EmployeesViewModel>());
+        }
+
+        public void OpenDTR()
+        {
+            ActivateItem(IoC.Get<DTRViewModel>());
+        }
     }
 }

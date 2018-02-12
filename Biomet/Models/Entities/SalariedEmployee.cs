@@ -11,7 +11,7 @@ namespace Biomet.Models.Entities
     {
         public int MonthlySalary { get; set; }
 
-        protected override void MakePayment(PayCheck payCheck)
+        protected override void OnMakePayment(PayCheck payCheck)
         {
 
         }
@@ -21,7 +21,7 @@ namespace Biomet.Models.Entities
             return date.DayOfWeek == DayOfWeek.Friday;
         }
 
-        protected override void DeterminePaymentPeriod(PayCheck payCheck)
+        protected override void OnDeterminePaymentPeriod(PayCheck payCheck)
         {
             payCheck.StartOfPaymentPeriod = payCheck.PaymentDate.AddDays(-4);
         }
