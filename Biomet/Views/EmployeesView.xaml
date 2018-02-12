@@ -7,25 +7,32 @@
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+            <Button  x:Name="NewEmployee" Content="New"/>
+            <Button Content="Delete"/>
+            <Button Content="Modify"/>
+        </StackPanel>
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="3*"/>
-            </Grid.RowDefinitions>
-            <DataGrid x:Name="Employees" />
+            <Grid Grid.ColumnSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                <DataGrid x:Name="Employees" />
 
-            <Grid Grid.Row="1"/>
+                <Grid Grid.Row="1"/>
 
-        </Grid>
+            </Grid>
 
-        <Button Content="&lt;&lt;" VerticalAlignment="Center"
+            <Button Content="&lt;&lt;" VerticalAlignment="Center"
                 cal:Message.Attach="OpenDTR"/>
 
-    </Grid>
+        </Grid>
+    </DockPanel>
 </UserControl>

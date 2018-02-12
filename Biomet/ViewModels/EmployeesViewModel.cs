@@ -10,11 +10,14 @@ namespace Biomet.ViewModels
 {
     class EmployeesViewModel : Screen
     {
+        private readonly IWindowManager _windowManager;
+
         public BindableCollection<Employee> Employees { get; set; }
 
-        public EmployeesViewModel()
+        public EmployeesViewModel(IWindowManager windowManager)
         {
             Employees = new BindableCollection<Employee>();
+            _windowManager = windowManager;
         }
 
         protected override void OnViewLoaded(object view)
@@ -26,6 +29,11 @@ namespace Biomet.ViewModels
                     Employees.AddRange(db.Employees.ToList());
                 }
             });
+        }
+
+        public void NewEmployee()
+        {
+            _windowManager.ShowDialog(IoC.Get<AddEditEmployeeViewModel>());
         }
     }
 }

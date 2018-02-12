@@ -178,5 +178,8 @@
   <ItemGroup>
     <Resource Include="Images\shutterstock_biometric-1168x657.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Who_is_it.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

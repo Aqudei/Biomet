@@ -6,8 +6,98 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Biomet.Views"
         mc:Ignorable="d"
-        Title="AddEditEmployeeView" Height="300" Width="300">
-    <Grid>
-        
+        Title="Add / Edit Employee" Height="400" Width="600" IsCloseButtonEnabled="False" ShowCloseButton="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
+    <Grid Margin="5">
+        <Grid.Resources>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+            <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <Style TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <Style TargetType="DatePickerTextBox" BasedOn="{StaticResource {x:Type DatePickerTextBox}}">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <BitmapImage x:Key="WhoImage" UriSource="/Biomet;component/Images/Who_is_it.png"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button VerticalAlignment="Bottom" Margin="8" >
+                    <TextBlock Text="Browse Photo" TextWrapping="Wrap" Width="42"/>
+                </Button>
+                <Image Width="180"
+                    HorizontalAlignment="Right"
+                    x:Name="Photo"
+                    Height="180"
+                    Margin="0,0,8,0" Source="{Binding Photo, TargetNullValue={StaticResource WhoImage}}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Firstname:" Width="90"/>
+                <TextBox Width="180" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Middlename:" Width="90"/>
+                <TextBox Width="180" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Lastname:" Width="90"/>
+                <TextBox Width="180" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Sex:" Width="90"/>
+                <ComboBox Width="180" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Birthplace:" Width="90"/>
+                <TextBox Width="180" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Birthday:" Width="90"/>
+                <DatePicker Width="180"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Payment Type:" Width="90"/>
+                <ComboBox Width="180"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Hourly Rate:" Width="90"/>
+                <TextBox Width="180"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Monthly Salary:" Width="90"/>
+                <TextBox Width="180"/>
+            </StackPanel>
+
+            <HeaderedContentControl Header="Premiums" 
+                                    HorizontalContentAlignment="Center"
+                                    Margin="4" 
+                                    HorizontalAlignment="Center">
+
+                <StackPanel HorizontalAlignment="Center">
+                    <CheckBox HorizontalAlignment="Right" Width="100">SSS</CheckBox>
+                    <CheckBox HorizontalAlignment="Right" Width="100">PhilHealth</CheckBox>
+                </StackPanel>
+            </HeaderedContentControl>
+            <StackPanel Orientation="Horizontal" Margin="32,0,0,0">
+                <Button Content="Save" 
+                    HorizontalAlignment="Right"/>
+                <Button Content="Done" x:Name="Done"
+                    HorizontalAlignment="Right"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </controls:MetroWindow>
