@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Biomet", "Biomet\Biomet.csproj", "{6BDD9CF2-A77C-4882-9866-D8C5CA61F18F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiometUnitTests", "BiometUnitTests\BiometUnitTests.csproj", "{FBD142EF-534D-4B38-BFA0-7962A084CF48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6BDD9CF2-A77C-4882-9866-D8C5CA61F18F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BDD9CF2-A77C-4882-9866-D8C5CA61F18F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BDD9CF2-A77C-4882-9866-D8C5CA61F18F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD142EF-534D-4B38-BFA0-7962A084CF48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD142EF-534D-4B38-BFA0-7962A084CF48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD142EF-534D-4B38-BFA0-7962A084CF48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD142EF-534D-4B38-BFA0-7962A084CF48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
