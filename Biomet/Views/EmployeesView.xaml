@@ -10,7 +10,7 @@
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Button  x:Name="NewEmployee" Content="New"/>
-            <Button Content="Delete"/>
+            <Button Content="Delete" x:Name="Delete"/>
             <Button Content="Modify"/>
         </StackPanel>
         <Grid DockPanel.Dock="Bottom">
