@@ -1,4 +1,6 @@
-﻿using Biomet.ViewModels;
+﻿using AutoMapper;
+using Biomet.Models.Entities;
+using Biomet.ViewModels;
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
@@ -43,6 +45,12 @@ namespace Biomet
 
             _simpleContainer.Singleton<IWindowManager, WindowManager>();
             _simpleContainer.Singleton<IEventAggregator, EventAggregator>();
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<AddEditEmployeeViewModel, SalariedEmployee>().ReverseMap();
+                cfg.CreateMap<AddEditEmployeeViewModel, HourlyRatedEmployee>().ReverseMap();
+            });
 
             base.Configure();
         }

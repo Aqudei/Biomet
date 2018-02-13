@@ -8,6 +8,7 @@ namespace Biomet.Models.Entities
 {
     public abstract class Employee : EntityBase
     {
+
         public enum EMPLOYEE_TYPE
         {
             Salaried,

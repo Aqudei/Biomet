@@ -45,58 +45,78 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Firstname:" Width="90"/>
-                <TextBox Width="180" />
+                <TextBox Width="180" x:Name="FirstName" TabIndex="1" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Middlename:" Width="90"/>
-                <TextBox Width="180" />
+                <TextBox Width="180" x:Name="MiddleName" TabIndex="2" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Lastname:" Width="90"/>
-                <TextBox Width="180" />
+                <TextBox Width="180" x:Name="LastName" TabIndex="3" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Sex:" Width="90"/>
-                <ComboBox Width="180" />
+                <ComboBox Width="180" 
+                          SelectedValuePath="Value"
+                          DisplayMemberPath="Key"
+                          SelectedValue="{Binding Sex}" 
+                          x:Name="Sexes" TabIndex="4"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Birthplace:" Width="90"/>
-                <TextBox Width="180" />
+                <TextBox Width="180" x:Name="Birthplace" TabIndex="5"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Birthday:" Width="90"/>
-                <DatePicker Width="180"/>
+                <DatePicker Width="180" x:Name="Birthday" TabIndex="6"/>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Payment Type:" Width="90"/>
-                <ComboBox Width="180"/>
+                <ComboBox Width="180" x:Name="PaymentTypes" 
+                          DisplayMemberPath="Key"
+                          SelectedValuePath="Value"
+                          SelectedValue="{Binding PaymentType}" TabIndex="7"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" IsEnabled="{Binding HourlyRateFieldEnabled}">
                 <TextBlock Text="Hourly Rate:" Width="90"/>
-                <TextBox Width="180"/>
+                <TextBox Width="180" 
+                         x:Name="RatePerHour" TabIndex="8"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" IsEnabled="{Binding MonthlySalaryFieldEnabled}">
                 <TextBlock Text="Monthly Salary:" Width="90"/>
-                <TextBox Width="180"/>
+                <TextBox Width="180" x:Name="MonthlySalary" TabIndex="9"/>
             </StackPanel>
 
             <HeaderedContentControl Header="Premiums" 
                                     HorizontalContentAlignment="Center"
                                     Margin="4" 
+                                    IsEnabled="{Binding PremiumFieldsEnabled}"
                                     HorizontalAlignment="Center">
 
-                <StackPanel HorizontalAlignment="Center">
-                    <CheckBox HorizontalAlignment="Right" Width="100">SSS</CheckBox>
-                    <CheckBox HorizontalAlignment="Right" Width="100">PhilHealth</CheckBox>
+                <StackPanel HorizontalAlignment="Center" >
+                    <CheckBox HorizontalAlignment="Right" 
+                              x:Name="HasSSS"
+                              Width="100" TabIndex="10">SSS</CheckBox>
+
+                    <CheckBox HorizontalAlignment="Right" 
+                              x:Name="HasPhilHealth"
+                              Width="100" TabIndex="11">PhilHealth</CheckBox>
+
+                    <CheckBox HorizontalAlignment="Right" 
+                              x:Name="HasPagibig"
+                              Width="100" TabIndex="12">Pag-IBIG</CheckBox>
                 </StackPanel>
             </HeaderedContentControl>
             <StackPanel Orientation="Horizontal" Margin="32,0,0,0">
                 <Button Content="Save" 
-                    HorizontalAlignment="Right"/>
-                <Button Content="Done" x:Name="Done"
-                    HorizontalAlignment="Right"/>
+                        x:Name="Save"
+                        HorizontalAlignment="Right" TabIndex="13"/>
+                <Button Content="Done" 
+                        x:Name="Done"
+                        HorizontalAlignment="Right" TabIndex="14"/>
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\CrudEvent.cs" />
     <Compile Include="Extentions\DateExtention.cs" />
     <Compile Include="Models\Deductions\DeductionsComposite.cs" />
     <Compile Include="Models\Deductions\IDeductable.cs" />

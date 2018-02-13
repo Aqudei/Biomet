@@ -12,5 +12,11 @@ namespace BiometUnitTests
             var dayOnFriday = new DateTime(2018, 2, 9);
             Assert.IsTrue(dayOnFriday.AddDays(-4).DayOfWeek == DayOfWeek.Monday);
         }
+
+        [TestMethod]
+        public void CanCreateCorrectEmployeeType()
+        {
+
+        }
     }
 }
