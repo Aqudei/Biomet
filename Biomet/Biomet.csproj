@@ -101,10 +101,12 @@
     <Compile Include="Models\Deductions\WitholdingTaxDeduction.cs" />
     <Compile Include="Models\Deductions\SSSDeduction.cs" />
     <Compile Include="Models\Deductions\PhilHealthDeduction.cs" />
+    <Compile Include="Models\Entities\DayLog.cs" />
     <Compile Include="Models\Entities\Employee.cs" />
     <Compile Include="Models\Entities\EntityBase.cs" />
     <Compile Include="Models\Entities\HourlyRatedEmployee.cs" />
     <Compile Include="Models\Entities\SalariedEmployee.cs" />
+    <Compile Include="Models\Entities\TimeCard.cs" />
     <Compile Include="Models\Exceptions\NotPayDayException.cs" />
     <Compile Include="Models\PayCheck.cs" />
     <Compile Include="Models\Persistence\BiometContext.cs" />

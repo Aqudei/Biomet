@@ -8,12 +8,27 @@ namespace Biomet.Models.Entities
 {
     public abstract class Employee : EntityBase
     {
-
         public enum EMPLOYEE_TYPE
         {
             Salaried,
             HourlyRated
         }
+
+        public Employee()
+        {
+            TimeCards = new List<TimeCard>();
+        }
+
+        public void PostTimeCard(DateTime logDate, double numHours)
+        {
+            TimeCards.Add(new TimeCard
+            {
+                LogDate = logDate.Date,
+                NumberOfHours = numHours
+            });
+        }
+
+        public List<TimeCard> TimeCards { get; set; }
 
         public string FirstName { get; set; }
         public string Sex { get; set; }
