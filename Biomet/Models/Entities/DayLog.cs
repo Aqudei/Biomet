@@ -11,7 +11,13 @@ namespace Biomet.Models.Entities
     {
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
-        
 
+        public virtual Employee Employee { get; set; }
+
+        public DateTime LogDate { get; set; }
+        public DateTime AMIN { get; set; }
+        public DateTime AMOUT{ get; set; }
+        public DateTime PMIN { get; set; }
+        public DateTime PMOUT { get; set; }
     }
 }

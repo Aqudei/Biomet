@@ -42,6 +42,7 @@ namespace Biomet
             _simpleContainer.PerRequest<AddEditEmployeeViewModel>();
             _simpleContainer.PerRequest<EmployeesViewModel>();
             _simpleContainer.PerRequest<DTRViewModel>();
+            _simpleContainer.PerRequest<FingerRegistrationViewModel>();
 
             _simpleContainer.Singleton<IWindowManager, WindowManager>();
             _simpleContainer.Singleton<IEventAggregator, EventAggregator>();

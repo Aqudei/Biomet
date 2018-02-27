@@ -32,6 +32,7 @@ namespace Biomet.ViewModels
                 if (e.PropertyName == nameof(SelectedEmployee))
                 {
                     NotifyOfPropertyChange(nameof(CanDelete));
+                    NotifyOfPropertyChange(nameof(CanEnrollFinger));
                 }
             };
 
@@ -57,6 +58,21 @@ namespace Biomet.ViewModels
         public void NewEmployee()
         {
             _windowManager.ShowDialog(IoC.Get<AddEditEmployeeViewModel>());
+        }
+
+        public bool CanEnrollFinger
+        {
+            get
+            {
+                return SelectedEmployee != null;
+            }
+        }
+
+        public void EnrollFinger()
+        {
+            var frVm = IoC.Get<FingerRegistrationViewModel>();
+            frVm.Employee = SelectedEmployee;
+            _windowManager.ShowDialog(frVm);
         }
 
         public async void Delete()

@@ -49,6 +49,40 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="DPFPCtlXTypeLibNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPCtlXTypeLibNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DPFPCtlXWrapperNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPCtlXWrapperNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DPFPDevNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=696774c42ee28c57, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPDevNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DPFPEngNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=7fe76e7adf19964b, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPEngNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DPFPGuiNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d4f4a0bd9c559145, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPGuiNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DPFPShrNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d902fe275a8d6cf2, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPShrNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DPFPShrXTypeLibNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPShrXTypeLibNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DPFPVerNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=4de0a9c4dcc83984, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPVerNET.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -95,6 +129,7 @@
     </ApplicationDefinition>
     <Compile Include="Events\CrudEvent.cs" />
     <Compile Include="Extentions\DateExtention.cs" />
+    <Compile Include="Helpers\ConvertBitmapToBitmapImage.cs" />
     <Compile Include="Models\Deductions\DeductionsComposite.cs" />
     <Compile Include="Models\Deductions\IDeductable.cs" />
     <Compile Include="Models\Deductions\IDeduction.cs" />
@@ -110,9 +145,13 @@
     <Compile Include="Models\Exceptions\NotPayDayException.cs" />
     <Compile Include="Models\PayCheck.cs" />
     <Compile Include="Models\Persistence\BiometContext.cs" />
+    <Compile Include="Repositories\DTRRepository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="ViewModels\AddEditEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\CaptureFingerViewModel.cs" />
     <Compile Include="ViewModels\DTRViewModel.cs" />
     <Compile Include="ViewModels\EmployeesViewModel.cs" />
+    <Compile Include="ViewModels\FingerRegistrationViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\AddEditEmployeeView.xaml.cs">
       <DependentUpon>AddEditEmployeeView.xaml</DependentUpon>
@@ -122,6 +161,9 @@
     </Compile>
     <Compile Include="Views\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FingerRegistrationView.xaml.cs">
+      <DependentUpon>FingerRegistrationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -140,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EmployeesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FingerRegistrationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

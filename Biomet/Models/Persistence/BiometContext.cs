@@ -13,10 +13,18 @@ namespace Biomet.Models.Persistence
     public class BiometContext : DbContext
     {
         public virtual DbSet<Employee> Employees { get; set; }
-
+        public virtual DbSet<DayLog> DayLogs { get; set; }
+        
         public BiometContext()
         {
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BiometContext>());
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            
         }
     }
 }

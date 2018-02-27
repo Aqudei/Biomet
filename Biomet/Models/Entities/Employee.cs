@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +16,12 @@ namespace Biomet.Models.Entities
             HourlyRated
         }
 
+        public string EmployeeNumber { get; set; }
+
         public Employee()
         {
             TimeCards = new List<TimeCard>();
+            DayLogs = new List<DayLog>();
         }
 
         public void PostTimeCard(DateTime logDate, double numHours)
@@ -29,6 +34,8 @@ namespace Biomet.Models.Entities
         }
 
         public List<TimeCard> TimeCards { get; set; }
+        public List<DayLog> DayLogs { get; set; }
+
 
         public string FirstName { get; set; }
         public string Sex { get; set; }
