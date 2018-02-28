@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Biomet.Models.Entities;
+using Biomet.Repositories;
 using Biomet.ViewModels;
 using Caliburn.Micro;
 using System;
@@ -43,6 +44,7 @@ namespace Biomet
             _simpleContainer.PerRequest<EmployeesViewModel>();
             _simpleContainer.PerRequest<DTRViewModel>();
             _simpleContainer.PerRequest<FingerRegistrationViewModel>();
+            _simpleContainer.PerRequest<DTRRepository>();
 
             _simpleContainer.Singleton<IWindowManager, WindowManager>();
             _simpleContainer.Singleton<IEventAggregator, EventAggregator>();

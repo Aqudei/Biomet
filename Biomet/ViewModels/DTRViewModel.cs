@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
+using Biomet.Models.Entities;
+using Biomet.Repositories;
 using DPFP;
 using DPFP.Verification;
 
@@ -14,6 +17,24 @@ namespace Biomet.ViewModels
     public class DTRViewModel : CaptureFingerViewModel
     {
         private Verification Verificator;
+
+        public DTRViewModel(DTRRepository dtrRepository)
+        {
+            SetupClock();
+            this.dtrRepository = dtrRepository;
+        }
+
+        private void SetupClock()
+        {
+            timer = new DispatcherTimer(DispatcherPriority.Normal);
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Tick += (s, e) =>
+            {
+                DateNow = DateTime.Now.ToLongDateString();
+                TimeNow = DateTime.Now.ToLongTimeString();
+            };
+            timer.Start();
+        }
 
         protected override void Init()
         {
@@ -24,6 +45,15 @@ namespace Biomet.ViewModels
         }
 
         private Dictionary<string, Template> _templates = new Dictionary<string, Template>();
+        private DispatcherTimer timer;
+        private string _dateTimeNow;
+        private Employee _employee;
+        private string _timeNow;
+        private readonly DTRRepository dtrRepository;
+
+        public string DateNow { get => _dateTimeNow; private set => Set(ref _dateTimeNow, value); }
+        public string TimeNow { get => _timeNow; private set => Set(ref _timeNow, value); }
+        public Employee Employee { get => _employee; private set => Set(ref _employee, value); }
 
         private void LoadTemplates()
         {
@@ -56,10 +86,17 @@ namespace Biomet.ViewModels
 
                 if (result.Verified)
                 {
-                    MessageBox.Show("[Temporary only for debug]\nYou are " + storedTemplate.Key);
+                    FingerIdentified(storedTemplate.Key);
                     return;
                 }
             }
+        }
+
+        private void FingerIdentified(string employeeNumber)
+        {
+            //MessageBox.Show("[Temporary only for debug]\nYou are " + employeeNumber);
+            Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
+
         }
 
         private void UpdateStatus(int fARAchieved)

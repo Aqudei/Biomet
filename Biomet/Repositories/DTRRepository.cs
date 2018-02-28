@@ -14,11 +14,11 @@ namespace Biomet.Repositories
         {
         }
 
-        public Employee Get(int id, DateTime logDate)
+        public Employee Get(string employeeNumber, DateTime logDate)
         {
             var _logdate = logDate.Date;
             var result = (from e in _context.Employees
-                          where e.Id == id
+                          where e.EmployeeNumber == employeeNumber
                           select new
                           {
                               Employee = e,
