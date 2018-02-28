@@ -15,9 +15,9 @@ namespace Biomet.Models.Entities
         public virtual Employee Employee { get; set; }
 
         public DateTime LogDate { get; set; }
-        public TimeSpan? AMIN { get; set; }
-        public TimeSpan? AMOUT { get; set; }
-        public TimeSpan? PMIN { get; set; }
-        public TimeSpan? PMOUT { get; set; }
+        public DateTime? AMIN { get; set; }
+        public DateTime? AMOUT { get; set; }
+        public DateTime? PMIN { get; set; }
+        public DateTime? PMOUT { get; set; }
     }
 }
