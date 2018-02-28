@@ -17,7 +17,7 @@ namespace Biomet.Views
     /// <summary>
     /// Interaction logic for FingerRegistrationView.xaml
     /// </summary>
-    public partial class FingerRegistrationView : Window
+    public partial class FingerRegistrationView 
     {
         public FingerRegistrationView()
         {

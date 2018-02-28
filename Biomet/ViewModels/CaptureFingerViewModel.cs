@@ -3,19 +3,29 @@ using DPFP;
 using DPFP.Capture;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace Biomet.ViewModels
 {
-    class CaptureFingerViewModel : Screen, DPFP.Capture.EventHandler
+    public class CaptureFingerViewModel : Screen, DPFP.Capture.EventHandler
     {
-        private Capture Capturer;
+        private Capture _capturer;
         private string _report;
+        private string _statusText;
+
+        public string StatusText
+        {
+            get => _statusText;
+            set => Set(ref _statusText, value);
+        }
 
         public CaptureFingerViewModel()
         {
@@ -44,10 +54,10 @@ namespace Biomet.ViewModels
         {
             try
             {
-                Capturer = new Capture();				// Create a capture operation.
+                _capturer = new Capture();				// Create a capture operation.
 
-                if (null != Capturer)
-                    Capturer.EventHandler = this;					// Subscribe for capturing events.
+                if (null != _capturer)
+                    _capturer.EventHandler = this;					// Subscribe for capturing events.
                 else
                     SetPrompt("Can't initiate capture operation!");
             }
@@ -73,44 +83,54 @@ namespace Biomet.ViewModels
 
         private void DrawPicture(Bitmap bitmap)
         {
-            //this.Invoke(new Function(delegate () {
-            //    Picture.Image = new Bitmap(bitmap, Picture.Size);   // fit the image into the picture box
-            //}));
+            OnUIThread(() =>
+            {
+                FPImageSource = Helpers.BitmapConverter.Convert(bitmap);
+            });
         }
+
+        private ImageSource _fpImageSource;
+
+        public ImageSource FPImageSource
+        {
+            get => _fpImageSource;
+            set => Set(ref _fpImageSource, value);
+        }
+
 
         protected void Start()
         {
-            if (null != Capturer)
+            if (null == _capturer)
+                return;
+
+            try
             {
-                try
-                {
-                    Capturer.StartCapture();
-                    SetPrompt("Using the fingerprint reader, scan your fingerprint.");
-                }
-                catch
-                {
-                    SetPrompt("Can't initiate capture!");
-                }
+                _capturer.StartCapture();
+                SetPrompt("Using the fingerprint reader, scan your fingerprint.");
+            }
+            catch
+            {
+                SetPrompt("Can't initiate capture!");
             }
         }
 
         private void SetPrompt(string v)
         {
-
+            Debug.WriteLine("promt: " + v);
         }
 
         protected void Stop()
         {
-            if (null != Capturer)
+            if (null == _capturer)
+                return;
+
+            try
             {
-                try
-                {
-                    Capturer.StopCapture();
-                }
-                catch
-                {
-                    //SetPrompt("Can't terminate capture!");
-                }
+                _capturer.StopCapture();
+            }
+            catch
+            {
+                SetStatus("Can't terminate capture!");
             }
         }
 
@@ -123,10 +143,10 @@ namespace Biomet.ViewModels
 
         protected void MakeReport(string v)
         {
-            Report += DateTime.Now.ToString() + " - " + v;
+            Report += DateTime.Now.ToString(CultureInfo.InvariantCulture) + " - " + v + "\n\n";
         }
 
-        public void OnFingerGone(object Capture, string ReaderSerialNumber)
+        public void OnFingerGone(object capture, string readerSerialNumber)
         {
             MakeReport("The finger was removed from the fingerprint reader.");
         }
@@ -168,9 +188,7 @@ namespace Biomet.ViewModels
 
         protected void SetStatus(string status)
         {
-            //this.Invoke(new Function(delegate () {
-            //    StatusLine.Text = status;
-            //}));
+            StatusText = status;
         }
 
     }

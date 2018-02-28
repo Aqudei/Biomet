@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 
 namespace Biomet.Helpers
 {
-    public class ConvertBitmapToBitmapImage
+    public class BitmapConverter
     {
         public static BitmapSource Convert(Bitmap source)
         {

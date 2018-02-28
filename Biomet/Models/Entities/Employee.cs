@@ -18,7 +18,7 @@ namespace Biomet.Models.Entities
 
         public string EmployeeNumber { get; set; }
 
-        public Employee()
+        protected Employee()
         {
             TimeCards = new List<TimeCard>();
             DayLogs = new List<DayLog>();
@@ -33,11 +33,18 @@ namespace Biomet.Models.Entities
             });
         }
 
+        public string Photo { get; set; }
+
         public List<TimeCard> TimeCards { get; set; }
         public List<DayLog> DayLogs { get; set; }
 
 
         public string FirstName { get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+
+        public string FullName => $"{LastName}, {FirstName} {MiddleName[0]}";
+
         public string Sex { get; set; }
         public DateTime? Birthday { get; set; }
 

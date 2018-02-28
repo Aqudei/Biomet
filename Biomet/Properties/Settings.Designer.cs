@@ -34,5 +34,17 @@ namespace Biomet.Properties {
                 this["FPTEMPLATE_DIR"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Photos")]
+        public string PHOTOS_DIR {
+            get {
+                return ((string)(this["PHOTOS_DIR"]));
+            }
+            set {
+                this["PHOTOS_DIR"] = value;
+            }
+        }
     }
 }

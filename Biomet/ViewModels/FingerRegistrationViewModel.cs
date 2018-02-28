@@ -11,58 +11,57 @@ using DPFP.Processing;
 
 namespace Biomet.ViewModels
 {
-    class FingerRegistrationViewModel : CaptureFingerViewModel
+    public class FingerRegistrationViewModel : CaptureFingerViewModel
     {
-        private Enrollment Enroller;
-
-        public FingerRegistrationViewModel() : base()
-        {
-
-        }
+        private Enrollment _enroller;
 
         protected override void Init()
         {
             base.Init();
-            Enroller = new DPFP.Processing.Enrollment();
+            _enroller = new Enrollment();
             UpdateStatus();
         }
 
-        protected override void Process(Sample Sample)
+        protected override void Process(Sample sample)
         {
-            base.Process(Sample);
+            base.Process(sample);
 
-            DPFP.FeatureSet features = ExtractFeatures(Sample, DPFP.Processing.DataPurpose.Enrollment);
+            var features = ExtractFeatures(sample, DPFP.Processing.DataPurpose.Enrollment);
             // Check quality of the sample and add to enroller if it's good
-            if (features != null)
-                try
-                {
-                    MakeReport("The fingerprint feature set was created.");
-                    Enroller.AddFeatures(features);     // Add feature set to template.
-                }
-                finally
-                {
-                    UpdateStatus();
-                    switch (Enroller.TemplateStatus)
-                    {
-                        case DPFP.Processing.Enrollment.Status.Ready:   // report success and stop capturing
-                            SaveTemplate(Enroller.Template);
-                            TryClose();
-                            break;
+            if (features == null) return;
 
-                        case DPFP.Processing.Enrollment.Status.Failed:  // report failure and restart capturing
-                            Enroller.Clear();
-                            Stop();
-                            UpdateStatus();
-                            //OnTemplate(null);
-                            Start();
-                            break;
-                    }
+            try
+            {
+                MakeReport("The fingerprint feature set was created.");
+                _enroller.AddFeatures(features);     // Add feature set to template.
+            }
+            finally
+            {
+                UpdateStatus();
+                switch (_enroller.TemplateStatus)
+                {
+                    case Enrollment.Status.Ready:   // report success and stop capturing
+                        SaveTemplate(_enroller.Template);
+                        TryClose();
+                        break;
+
+                    case Enrollment.Status.Failed:  // report failure and restart capturing
+                        _enroller.Clear();
+                        Stop();
+                        UpdateStatus();
+                        //OnTemplate(null);
+                        Start();
+                        break;
                 }
+            }
 
         }
 
         private void SaveTemplate(Template template)
         {
+            if (template == null)
+                throw new ArgumentNullException(nameof(template));
+
             using (var mem = new MemoryStream())
             {
                 template.Serialize(mem);
@@ -72,7 +71,7 @@ namespace Biomet.ViewModels
 
         private void UpdateStatus()
         {
-            SetStatus(String.Format("Fingerprint samples needed: {0}", Enroller.FeaturesNeeded));
+            SetStatus($"Fingerprint samples needed: {_enroller.FeaturesNeeded}");
         }
 
         public Employee Employee { get; internal set; }

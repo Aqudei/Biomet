@@ -12,6 +12,8 @@ namespace Biomet.ViewModels
         public ShellViewModel()
         {
             OpenDTR();
+
+            DisplayName = "Your Payroll System";
         }
 
         public void OpenManager()

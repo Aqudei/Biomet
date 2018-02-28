@@ -5,5 +5,8 @@
     <Setting Name="FPTEMPLATE_DIR" Type="System.String" Scope="User">
       <Value Profile="(Default)">Templates</Value>
     </Setting>
+    <Setting Name="PHOTOS_DIR" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Photos</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

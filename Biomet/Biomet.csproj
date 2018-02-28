@@ -95,6 +95,12 @@
     <Reference Include="MahApps.Metro.IconPacks, Version=2.0.0.31, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.2.0.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.1\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Shell.1.1.1\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.11\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
@@ -129,7 +135,7 @@
     </ApplicationDefinition>
     <Compile Include="Events\CrudEvent.cs" />
     <Compile Include="Extentions\DateExtention.cs" />
-    <Compile Include="Helpers\ConvertBitmapToBitmapImage.cs" />
+    <Compile Include="Helpers\BitmapConverter.cs" />
     <Compile Include="Models\Deductions\DeductionsComposite.cs" />
     <Compile Include="Models\Deductions\IDeductable.cs" />
     <Compile Include="Models\Deductions\IDeduction.cs" />

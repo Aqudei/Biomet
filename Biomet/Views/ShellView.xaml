@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Biomet.Views"
         mc:Ignorable="d"
-        Title="ShellView" Height="600" Width="800">
+        Title="{Binding DisplayName}" Height="600" Width="800">
     <Grid>
         <controls:TransitioningContentControl x:Name="ActiveItem" Transition="Left"/>
     </Grid>

@@ -3,14 +3,18 @@ using Biomet.Models.Entities;
 using Biomet.Models.Persistence;
 using Caliburn.Micro;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Biomet.ViewModels
 {
-    class AddEditEmployeeViewModel : Screen
+    sealed class AddEditEmployeeViewModel : Screen
     {
         private string _photo;
         private double _monthlySalary;
@@ -21,8 +25,30 @@ namespace Biomet.ViewModels
 
         public string Photo
         {
-            get { return _photo; }
-            set { Set(ref _photo, value); }
+            get => _photo;
+            set => Set(ref _photo, value);
+        }
+
+        public void BrowsePhoto()
+        {
+            using (var dialog = new Microsoft.WindowsAPICodePack.Dialogs.CommonOpenFileDialog
+            {
+                Multiselect = false,
+                InitialDirectory = "C:\\",
+                EnsureFileExists = true,
+                IsFolderPicker = false,
+                RestoreDirectory = true,
+                ShowHiddenItems = false,
+                ShowPlacesList = false
+            })
+            {
+                var rslt = dialog.ShowDialog();
+                if (rslt == CommonFileDialogResult.Ok)
+                {
+                    Photo = dialog.FileName;
+                }
+            };
+
         }
 
         public AddEditEmployeeViewModel(IEventAggregator eventAggregator)
@@ -41,6 +67,19 @@ namespace Biomet.ViewModels
             Sex = "Male";
 
             _eventAggregator = eventAggregator;
+
+            PropertyChanged += AddEditEmployeeViewModel_PropertyChanged;
+        }
+
+        private void AddEditEmployeeViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(FirstName)
+                || e.PropertyName == nameof(MiddleName)
+                || e.PropertyName == nameof(FirstName)
+                || e.PropertyName == nameof(EmployeeNumber))
+            {
+                NotifyOfPropertyChange(nameof(CanSave));
+            }
         }
 
         private Employee.EMPLOYEE_TYPE _paymentType;
@@ -55,8 +94,8 @@ namespace Biomet.ViewModels
 
         public Employee.EMPLOYEE_TYPE PaymentType
         {
-            get { return _paymentType; }
-            set { Set(ref _paymentType, value); }
+            get => _paymentType;
+            set => Set(ref _paymentType, value);
         }
 
         public Dictionary<string, string> Sexes { get; }
@@ -81,10 +120,41 @@ namespace Biomet.ViewModels
         public DateTime? Birthday { get => _birthday; set => Set(ref _birthday, value); }
         public string Birthplace { get => _birthplace; set => Set(ref _birthplace, value); }
 
+        public bool CanSave
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(MiddleName)
+                    && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(EmployeeNumber);
+            }
+        }
+
+        private string _employeeNumber;
+
+        public string EmployeeNumber
+        {
+            get => _employeeNumber;
+            set => Set(ref _employeeNumber, value);
+        }
+
         public async void Save()
         {
+
+            if (Photo != null)
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.PHOTOS_DIR);
+                var absoluteDestPath = Path.GetFullPath(Properties.Settings.Default.PHOTOS_DIR);
+                var fileExtention = Path.GetExtension(Photo);
+
+                var destination =
+                    Path.Combine(absoluteDestPath, EmployeeNumber + fileExtention);
+                File.Copy(Photo, destination, true);
+                Photo = destination;
+            }
+
             var emp = Employee.Create(Enum.GetName(typeof(Employee.EMPLOYEE_TYPE), PaymentType));
             Mapper.Map(this, emp);
+
             if (Id <= 0)
             {
                 using (var db = new BiometContext())
@@ -93,6 +163,10 @@ namespace Biomet.ViewModels
                     await db.SaveChangesAsync();
                     await _eventAggregator.PublishOnCurrentThreadAsync(new Events.CrudEvent<Employee>(emp, Events.CrudEvent<Employee>.CrudActionEnum.Created));
                 }
+            }
+            else
+            {
+                //update
             }
         }
     }

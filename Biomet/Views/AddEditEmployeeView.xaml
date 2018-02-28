@@ -34,7 +34,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button VerticalAlignment="Bottom" Margin="8" >
+                <Button VerticalAlignment="Bottom" Margin="8" x:Name="BrowsePhoto">
                     <TextBlock Text="Browse Photo" TextWrapping="Wrap" Width="42"/>
                 </Button>
                 <Image Width="180"
@@ -74,19 +74,23 @@
         </StackPanel>
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Payment Type:" Width="90"/>
+                <TextBlock Text="Employee Number:" Width="110"/>
+                <TextBox Width="180" x:Name="EmployeeNumber" TabIndex="9"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Payment Type:" Width="110"/>
                 <ComboBox Width="180" x:Name="PaymentTypes" 
                           DisplayMemberPath="Key"
                           SelectedValuePath="Value"
                           SelectedValue="{Binding PaymentType}" TabIndex="7"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" IsEnabled="{Binding HourlyRateFieldEnabled}">
-                <TextBlock Text="Hourly Rate:" Width="90"/>
+                <TextBlock Text="Hourly Rate:" Width="110"/>
                 <TextBox Width="180" 
                          x:Name="RatePerHour" TabIndex="8"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" IsEnabled="{Binding MonthlySalaryFieldEnabled}">
-                <TextBlock Text="Monthly Salary:" Width="90"/>
+                <TextBlock Text="Monthly Salary:" Width="110"/>
                 <TextBox Width="180" x:Name="MonthlySalary" TabIndex="9"/>
             </StackPanel>
 
