@@ -11,8 +11,7 @@ namespace Biomet.Repositories
     public class DTRRepository : RepositoryBase
     {
         public DTRRepository(BiometContext context) : base(context)
-        {
-        }
+        {}
 
         public Employee Get(string employeeNumber, DateTime logDate)
         {

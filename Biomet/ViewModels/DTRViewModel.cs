@@ -122,10 +122,16 @@ namespace Biomet.ViewModels
 
         private void FingerIdentified(string employeeNumber)
         {
-            //MessageBox.Show("[Temporary only for debug]\nYou are " + employeeNumber);
-            Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
-            Employee.SetLog(SelectedLogType);
-            dtrRepository.Save(Employee);
+            try
+            {
+                Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
+                Employee.SetLog(SelectedLogType);
+                dtrRepository.Save(Employee);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void UpdateStatus(int fARAchieved)

@@ -87,26 +87,36 @@ namespace Biomet.Models.Entities
             if (!logdate.HasValue)
                 logdate = DateTime.Now;
 
+            var daylog = DayLogs.First();
+
             switch (selectedLogType)
             {
                 case 1:
                     {
-                        DayLogs.First().AMIN = logdate.Value;
+                        daylog.AMIN = daylog.AMIN.HasValue
+                            ? throw new InvalidOperationException("Redundant Log  is not allowed!")
+                            : logdate.Value;
                         break;
                     }
                 case 2:
                     {
-                        DayLogs.First().AMOUT = logdate.Value;
+                        daylog.AMOUT = daylog.AMOUT.HasValue
+                           ? throw new InvalidOperationException("Redundant Log  is not allowed!")
+                           : logdate.Value;
                         break;
                     }
                 case 3:
                     {
-                        DayLogs.First().PMIN = logdate.Value;
+                        daylog.PMIN = daylog.PMIN.HasValue
+                              ? throw new InvalidOperationException("Redundant Log  is not allowed!")
+                              : logdate.Value;
                         break;
                     }
                 case 4:
                     {
-                        DayLogs.First().PMOUT = logdate.Value;
+                        daylog.PMOUT = daylog.PMOUT.HasValue
+                              ? throw new InvalidOperationException("Redundant Log  is not allowed!")
+                              : logdate.Value;
                         break;
                     }
             }
