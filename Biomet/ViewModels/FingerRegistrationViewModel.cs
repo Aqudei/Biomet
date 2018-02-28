@@ -22,6 +22,11 @@ namespace Biomet.ViewModels
             UpdateStatus();
         }
 
+        public void CancelEnroll()
+        {
+            TryClose();
+        }
+
         protected override void Process(Sample sample)
         {
             base.Process(sample);
