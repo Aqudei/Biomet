@@ -11,6 +11,7 @@ using Biomet.Models.Entities;
 using Biomet.Repositories;
 using DPFP;
 using DPFP.Verification;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Biomet.ViewModels
 {
@@ -18,10 +19,24 @@ namespace Biomet.ViewModels
     {
         private Verification Verificator;
 
-        public DTRViewModel(DTRRepository dtrRepository)
+        public DTRViewModel(DTRRepository dtrRepository, IDialogCoordinator dialogCoordinator)
         {
             SetupClock();
             this.dtrRepository = dtrRepository;
+            this.dialogCoordinator = dialogCoordinator;
+            PropertyChanged += DTRViewModel_PropertyChanged;
+        }
+
+        private void DTRViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(SelectedLogType):
+                    {
+                        Employee = null;
+                        break;
+                    }
+            }
         }
 
         private void SetupClock()
@@ -51,6 +66,7 @@ namespace Biomet.ViewModels
         private string _timeNow;
         private int _selectedLogType = 1;
         private readonly DTRRepository dtrRepository;
+        private readonly IDialogCoordinator dialogCoordinator;
 
         public string DateNow { get => _dateTimeNow; private set => Set(ref _dateTimeNow, value); }
         public string TimeNow { get => _timeNow; private set => Set(ref _timeNow, value); }
@@ -130,7 +146,7 @@ namespace Biomet.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                dialogCoordinator.ShowMessageAsync(this, "Failure", ex.Message, MessageDialogStyle.Affirmative);
             }
         }
 

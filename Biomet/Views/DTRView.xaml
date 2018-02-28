@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Biomet.Views"
+             xmlns:dlg="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+             dlg:DialogParticipation.Register="{Binding}"
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:Custom="http://metro.mahapps.com/winfx/xaml/controls" x:Class="Biomet.Views.DTRView"
              mc:Ignorable="d" 
@@ -14,7 +16,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="TIME SHEET" Background="#FFE08E4A" FontWeight="Bold"/>
+        <TextBlock Text="TIME SHEET" Background="#FFE08E4A" FontWeight="Bold" FontSize="24"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -40,7 +42,10 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel HorizontalAlignment="Stretch">
-
+                    <Image 
+                        x:Name="Employee_Photo" 
+                        Margin="16"
+                        Width="180" Height="160"/>
                     <TextBlock 
                         TextAlignment="Center"
                         x:Name="Employee_FullName" 

@@ -4,6 +4,7 @@ using Biomet.Models.Persistence;
 using Biomet.Repositories;
 using Biomet.ViewModels;
 using Caliburn.Micro;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace Biomet
             _simpleContainer.Singleton<BiometContext>();
             _simpleContainer.Singleton<IWindowManager, WindowManager>();
             _simpleContainer.Singleton<IEventAggregator, EventAggregator>();
+            _simpleContainer.Instance(DialogCoordinator.Instance);
 
             Mapper.Initialize(cfg =>
             {
