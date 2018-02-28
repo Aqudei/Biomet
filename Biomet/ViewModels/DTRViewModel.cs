@@ -48,7 +48,7 @@ namespace Biomet.ViewModels
         private DispatcherTimer timer;
         private string _dateTimeNow;
         private Employee _employee;
-        private string _timeNow; 
+        private string _timeNow;
         private int _selectedLogType = 1;
         private readonly DTRRepository dtrRepository;
 
