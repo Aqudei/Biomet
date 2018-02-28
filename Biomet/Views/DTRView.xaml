@@ -50,11 +50,21 @@
                         FontStretch="Expanded"/>
 
                     <Slider 
-                        x:Name="LogType" 
+                        x:Name="SelectedLogType" 
                         Maximum="4" 
                         Minimum="1" 
                         SmallChange="1"
-                        Margin="128,16" TickPlacement="Both"/>
+                        Margin="128,16" 
+                        TickPlacement="Both" 
+                        IsSnapToTickEnabled="True"/>
+
+                    <TextBlock 
+                        TextAlignment="Center"
+                        x:Name="LogTypeText" 
+                        FontSize="56" 
+                        FontFamily="Times New Roman"
+                        FontWeight="Bold" 
+                        FontStretch="Expanded" Margin="0,0,0,32"/>
 
                     <TextBlock 
                         TextAlignment="Center"

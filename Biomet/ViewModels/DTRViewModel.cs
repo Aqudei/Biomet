@@ -49,6 +49,7 @@ namespace Biomet.ViewModels
         private string _dateTimeNow;
         private Employee _employee;
         private string _timeNow;
+        private int _selectedLogType = 1;
         private readonly DTRRepository dtrRepository;
 
         public string DateNow { get => _dateTimeNow; private set => Set(ref _dateTimeNow, value); }
@@ -68,7 +69,34 @@ namespace Biomet.ViewModels
                     template.DeSerialize(mem);
                     _templates.Add(Path.GetFileNameWithoutExtension(f), template);
                 }
+            }
+        }
 
+        private Dictionary<double, string> _logTypeLookup = new Dictionary<double, string>
+        {
+            {1,"Morning Time In" },
+            {2,"Morning Time Out" },
+            {3,"Afternoon Time In" },
+            {4,"Afternoon Time Out" },
+        };
+
+        public string LogTypeText
+        {
+            get
+            {
+                if (SelectedLogType == 0)
+                    return string.Empty;
+
+                return _logTypeLookup[SelectedLogType];
+            }
+        }
+
+        public int SelectedLogType
+        {
+            get => _selectedLogType; set
+            {
+                Set(ref _selectedLogType, value);
+                NotifyOfPropertyChange(nameof(LogTypeText));
             }
         }
 
@@ -96,7 +124,6 @@ namespace Biomet.ViewModels
         {
             //MessageBox.Show("[Temporary only for debug]\nYou are " + employeeNumber);
             Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
-
         }
 
         private void UpdateStatus(int fARAchieved)
