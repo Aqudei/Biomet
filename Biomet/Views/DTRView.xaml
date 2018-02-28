@@ -42,10 +42,10 @@
                     </DataGrid.Effect>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="EMP #" Binding="{Binding Employee.EmployeeNumber}"/>
-                        <DataGridTextColumn Header="AM IN" Binding="{Binding AMIN}"/>
-                        <DataGridTextColumn Header="AM OUT" Binding="{Binding AMOUT}"/>
-                        <DataGridTextColumn Header="PM IN" Binding="{Binding PMIN}"/>
-                        <DataGridTextColumn Header="PM OUT" Binding="{Binding PMOUT}"/>
+                        <DataGridTextColumn Header="AM IN" Binding="{Binding AMIN,StringFormat={}{0:t}}"/>
+                        <DataGridTextColumn Header="AM OUT" Binding="{Binding AMOUT,StringFormat={}{0:t}}"/>
+                        <DataGridTextColumn Header="PM IN" Binding="{Binding PMIN,StringFormat={}{0:t}}"/>
+                        <DataGridTextColumn Header="PM OUT" Binding="{Binding PMOUT,StringFormat={}{0:t}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
