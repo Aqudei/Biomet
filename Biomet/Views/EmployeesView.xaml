@@ -25,15 +25,20 @@
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <DataGrid x:Name="Employees" IsReadOnly="True">
+                <DataGrid x:Name="Employees" 
+                          IsReadOnly="True" 
+                          AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding EmployeeNumber}" Header="Employee #"/>
                         <DataGridTextColumn Binding="{Binding FullName}" Header="FULL NAME"/>
                         <DataGridTextColumn Binding="{Binding Sex}" Header="GENDER"/>
-                        <DataGridTemplateColumn Header="">
+                        <DataGridTemplateColumn Header="Photo">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding Photo}"/>
+                                    <Image Source="{Binding Photo}" 
+                                           Width="128"
+                                           Margin="4"
+                                           Height="128"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

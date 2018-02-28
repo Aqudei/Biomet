@@ -7,6 +7,9 @@
         xmlns:local="clr-namespace:Biomet.Views"
         mc:Ignorable="d"
         Title="Add / Edit Employee" Height="400" Width="600" IsCloseButtonEnabled="False" ShowCloseButton="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
+    <controls:MetroWindow.Resources>
+        
+    </controls:MetroWindow.Resources>
     <Grid Margin="5">
         <Grid.Resources>
             <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
@@ -84,12 +87,12 @@
                           SelectedValuePath="Value"
                           SelectedValue="{Binding PaymentType}" TabIndex="7"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Visibility="{Binding HourlyRateFieldEnabled}">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding HourlyRateFieldEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Text="Hourly Rate:" Width="110"/>
                 <TextBox Width="180" 
                          x:Name="RatePerHour" TabIndex="8"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Visibility="{Binding MonthlySalaryFieldEnabled}">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding MonthlySalaryFieldEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Text="Monthly Salary:" Width="110"/>
                 <TextBox Width="180" x:Name="MonthlySalary" TabIndex="9"/>
             </StackPanel>
@@ -97,7 +100,7 @@
             <HeaderedContentControl Header="Premiums" 
                                     HorizontalContentAlignment="Center"
                                     Margin="4" 
-                                    Visibility="{Binding PremiumFieldsEnabled}"
+                                    Visibility="{Binding PremiumFieldsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
                                     HorizontalAlignment="Center">
 
                 <StackPanel HorizontalAlignment="Center" >
