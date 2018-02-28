@@ -22,11 +22,22 @@ namespace Biomet.Repositories
                           select new
                           {
                               Employee = e,
-                              Logs = e.DayLogs.Where(l => l.LogDate == _logdate)
+                              Log = e.DayLogs.FirstOrDefault(l => l.LogDate == _logdate)
                           }).FirstOrDefault();
 
             result.Employee.DayLogs = new List<DayLog>();
-            result.Employee.DayLogs.AddRange(result.Logs.ToList());
+            if (result.Log != null)
+            {
+                result.Employee.DayLogs.Add(result.Log);
+            }
+            else
+            {
+                result.Employee.DayLogs.Add(new DayLog
+                {
+                    EmployeeId = result.Employee.Id,
+                    LogDate = _logdate,
+                });
+            }
             return result.Employee;
         }
 
@@ -38,6 +49,12 @@ namespace Biomet.Repositories
                 {
                     _context.Set<DayLog>().Add(item);
                 }
+                else
+                {
+                    var dl = _context.Set<DayLog>().Attach(item);
+                    _context.Entry(dl).State = System.Data.Entity.EntityState.Modified;
+                }
+
                 _context.SaveChanges();
             }
         }

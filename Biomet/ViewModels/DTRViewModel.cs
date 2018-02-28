@@ -124,6 +124,8 @@ namespace Biomet.ViewModels
         {
             //MessageBox.Show("[Temporary only for debug]\nYou are " + employeeNumber);
             Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
+            Employee.SetLog(SelectedLogType);
+            dtrRepository.Save(Employee);
         }
 
         private void UpdateStatus(int fARAchieved)

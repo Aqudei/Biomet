@@ -38,6 +38,12 @@ namespace Biomet.Models.Entities
         public List<TimeCard> TimeCards { get; set; }
         public List<DayLog> DayLogs { get; set; }
 
+        public void AddDayLog(DayLog dayLog)
+        {
+
+        }
+
+
 
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -57,7 +63,6 @@ namespace Biomet.Models.Entities
             OnMakePayment(payCheck);
         }
 
-
         protected abstract void OnDeterminePaymentPeriod(PayCheck payCheck);
         protected abstract void OnMakePayment(PayCheck payCheck);
         protected abstract bool IsPayDay(DateTime date);
@@ -75,6 +80,37 @@ namespace Biomet.Models.Entities
             }
 
             throw new ArgumentOutOfRangeException("Unknown employee type");
+        }
+
+        public void SetLog(int selectedLogType, DateTime? logdate = null)
+        {
+            if (!logdate.HasValue)
+                logdate = DateTime.Now;
+
+            switch (selectedLogType)
+            {
+                case 1:
+                    {
+                        DayLogs.First().AMIN = logdate.Value;
+                        break;
+                    }
+                case 2:
+                    {
+                        DayLogs.First().AMOUT = logdate.Value;
+                        break;
+                    }
+                case 3:
+                    {
+                        DayLogs.First().PMIN = logdate.Value;
+                        break;
+                    }
+                case 4:
+                    {
+                        DayLogs.First().PMOUT = logdate.Value;
+                        break;
+                    }
+            }
+
         }
     }
 }
