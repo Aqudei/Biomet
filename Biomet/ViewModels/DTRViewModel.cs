@@ -27,6 +27,7 @@ namespace Biomet.ViewModels
 
         private void LoadTemplates()
         {
+            _templates.Clear();
             var files = Directory.GetFiles(Properties.Settings.Default.FPTEMPLATE_DIR);
             foreach (var f in files)
             {
