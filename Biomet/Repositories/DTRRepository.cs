@@ -11,33 +11,27 @@ namespace Biomet.Repositories
     public class DTRRepository : RepositoryBase
     {
         public DTRRepository(BiometContext context) : base(context)
-        {}
+        { }
 
         public Employee Get(string employeeNumber, DateTime logDate)
         {
             var _logdate = logDate.Date;
-            var result = (from e in _context.Employees
-                          where e.EmployeeNumber == employeeNumber
-                          select new
-                          {
-                              Employee = e,
-                              Log = e.DayLogs.FirstOrDefault(l => l.LogDate == _logdate)
-                          }).FirstOrDefault();
+            var employee = _context.Employees.Single(e => e.EmployeeNumber == employeeNumber);
+            var daylog = _context.DayLogs.SingleOrDefault(dl => dl.EmployeeId == employee.Id && dl.LogDate == _logdate);
 
-            result.Employee.DayLogs = new List<DayLog>();
-            if (result.Log != null)
+            if (daylog != null)
             {
-                result.Employee.DayLogs.Add(result.Log);
+                employee.DayLogs.Add(daylog);
             }
             else
             {
-                result.Employee.DayLogs.Add(new DayLog
+                employee.DayLogs.Add(new DayLog
                 {
-                    EmployeeId = result.Employee.Id,
+                    EmployeeId = employee.Id,
                     LogDate = _logdate,
                 });
             }
-            return result.Employee;
+            return employee;
         }
 
         public void Save(Employee employee)

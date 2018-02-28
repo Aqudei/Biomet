@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using Biomet.Extentions;
+using Biomet.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BiometUnitTests
@@ -26,5 +27,7 @@ namespace BiometUnitTests
 
             Debug.WriteLine("Week number of 02 Feb 2018 is: " + new DateTime(2018, 2, 2).GetWeekOfMonth());
         }
+
+       
     }
 }
