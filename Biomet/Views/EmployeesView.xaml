@@ -5,13 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Biomet.Views"
              xmlns:cal="http://www.caliburnproject.org"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" xmlns:models="clr-namespace:Biomet.Models.Entities"
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Button  x:Name="NewEmployee" Content="New" Margin="1"/>
             <Button Content="Delete" x:Name="Delete" Margin="1"/>
-            <Button Content="Modify" Margin="1"/>
+            <Button IsEnabled="False" Content="Modify" Margin="1"/>
             <Button x:Name="EnrollFinger" Content="Enroll Finger" Margin="1"/>
         </StackPanel>
         <Grid DockPanel.Dock="Bottom">
@@ -25,13 +25,14 @@
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
+
                 <DataGrid x:Name="Employees" 
                           IsReadOnly="True" 
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding EmployeeNumber}" Header="Employee #"/>
-                        <DataGridTextColumn Binding="{Binding FullName}" Header="FULL NAME"/>
-                        <DataGridTextColumn Binding="{Binding Sex}" Header="GENDER"/>
+                        <DataGridTextColumn Binding="{Binding EmployeeNumber}" FontSize="14" Header="Employee #"/>
+                        <DataGridTextColumn Binding="{Binding FullName}" FontSize="14" Header="FULL NAME"/>
+                        <DataGridTextColumn Binding="{Binding Sex}" FontSize="14" Header="GENDER"/>
                         <DataGridTemplateColumn Header="Photo">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -45,7 +46,37 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Grid Grid.Row="1"/>
+                <Grid Grid.Row="1">
+                    <Grid.Resources>
+                        <DataTemplate DataType="{x:Type models:HourlyRatedEmployee}" >
+                            <GroupBox Header="Hourly Rated Employee">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Hourly Rate: "/>
+                                        <TextBlock Text="{Binding RatePerHour}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type models:SalariedEmployee}" >
+                            <GroupBox Header="Salaried Employee">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Monthly Salary: "/>
+                                        <TextBlock Text="{Binding MonthlySalary}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                        </DataTemplate>
+                    </Grid.Resources>
+                    
+                    <ContentControl 
+                        FontSize="14" 
+                        Content="{Binding SelectedEmployee}" />
+                </Grid>
+
+
             </Grid>
 
             <Button Content="&lt;&lt;" VerticalAlignment="Center"

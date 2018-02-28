@@ -20,22 +20,37 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-
-
             <Image Stretch="UniformToFill" 
                 Source="/Biomet;component/Images/shutterstock_biometric-1168x657.jpg" 
-                   Grid.ColumnSpan="2" Opacity="0.3"/>
+                   Grid.ColumnSpan="3" Opacity="0.3"/>
+
             <Button x:Name="OpenManager" 
                     Content="&gt;&gt;" 
-                    Grid.Column="1" 
+                    Grid.Column="2" 
                     VerticalAlignment="Center"
-                    cal:Message.Attach="[Event Click] = [Action OpenManager]"/>
+                    cal:Message.Attach="OpenManager()"/>
 
-            <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch">
+            <GroupBox Header="DTR FOR TODAY" Margin="4">
+                <DataGrid x:Name="DayLogs" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Effect>
+                        <DropShadowEffect/>
+                    </DataGrid.Effect>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="EMP #" Binding="{Binding Employee.EmployeeNumber}"/>
+                        <DataGridTextColumn Header="AM IN" Binding="{Binding AMIN}"/>
+                        <DataGridTextColumn Header="AM OUT" Binding="{Binding AMOUT}"/>
+                        <DataGridTextColumn Header="PM IN" Binding="{Binding PMIN}"/>
+                        <DataGridTextColumn Header="PM OUT" Binding="{Binding PMOUT}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </GroupBox>
+
+            <Grid VerticalAlignment="Center" HorizontalAlignment="Stretch" Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
@@ -50,6 +65,14 @@
                         TextAlignment="Center"
                         x:Name="Employee_FullName" 
                         FontSize="72" 
+                        FontFamily="Times New Roman"
+                        FontWeight="Bold" 
+                        FontStretch="Expanded"/>
+
+                    <TextBlock 
+                        TextAlignment="Center"
+                        x:Name="LogTime" 
+                        FontSize="42" 
                         FontFamily="Times New Roman"
                         FontWeight="Bold" 
                         FontStretch="Expanded"/>

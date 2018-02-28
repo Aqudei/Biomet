@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Biomet.Models.Entities;
+using Biomet.Models.Persistence;
 using Biomet.Repositories;
+using Caliburn.Micro;
 using DPFP;
 using DPFP.Verification;
 using MahApps.Metro.Controls.Dialogs;
@@ -19,12 +21,28 @@ namespace Biomet.ViewModels
     {
         private Verification Verificator;
 
+        public BindableCollection<DayLog> DayLogs { get; set; } = new BindableCollection<DayLog>();
+
         public DTRViewModel(DTRRepository dtrRepository, IDialogCoordinator dialogCoordinator)
         {
             SetupClock();
             this.dtrRepository = dtrRepository;
             this.dialogCoordinator = dialogCoordinator;
             PropertyChanged += DTRViewModel_PropertyChanged;
+            RefreshLogs();
+        }
+
+        private void RefreshLogs()
+        {
+            Task.Run(() =>
+            {
+                DayLogs.Clear();
+                using (var db = new BiometContext())
+                {
+                    var _logdate = DateTime.Now;
+                    DayLogs.AddRange(db.DayLogs.Include("Employee").Where(d => d.LogDate == _logdate));
+                }
+            });
         }
 
         private void DTRViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -34,6 +52,7 @@ namespace Biomet.ViewModels
                 case nameof(SelectedLogType):
                     {
                         Employee = null;
+                        LogTime = "";
                         break;
                     }
             }
@@ -50,6 +69,15 @@ namespace Biomet.ViewModels
             };
             timer.Start();
         }
+
+        private string _logTime;
+
+        public string LogTime
+        {
+            get { return _logTime; }
+            set { Set(ref _logTime, value); }
+        }
+
 
         protected override void Init()
         {
@@ -142,7 +170,9 @@ namespace Biomet.ViewModels
             {
                 Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
                 Employee.SetLog(SelectedLogType);
+                LogTime = DateTime.Now.Date.ToLongTimeString();
                 dtrRepository.Save(Employee);
+                RefreshLogs();
             }
             catch (Exception ex)
             {
