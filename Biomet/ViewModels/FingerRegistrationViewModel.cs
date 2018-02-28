@@ -59,13 +59,16 @@ namespace Biomet.ViewModels
 
         private void SaveTemplate(Template template)
         {
+            Directory.CreateDirectory(Properties.Settings.Default.FPTEMPLATE_DIR);
+
             if (template == null)
                 throw new ArgumentNullException(nameof(template));
 
             using (var mem = new MemoryStream())
             {
                 template.Serialize(mem);
-                File.WriteAllBytes(Employee.EmployeeNumber, mem.ToArray());
+                var destination = Path.Combine(Properties.Settings.Default.FPTEMPLATE_DIR, Employee.EmployeeNumber + ".finger");
+                File.WriteAllBytes(destination, mem.ToArray());
             }
         }
 

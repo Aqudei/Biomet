@@ -31,7 +31,7 @@ namespace Biomet.ViewModels
 
         public void BrowsePhoto()
         {
-            using (var dialog = new Microsoft.WindowsAPICodePack.Dialogs.CommonOpenFileDialog
+            using (var dialog = new CommonOpenFileDialog
             {
                 Multiselect = false,
                 InitialDirectory = "C:\\",
@@ -69,7 +69,33 @@ namespace Biomet.ViewModels
             _eventAggregator = eventAggregator;
 
             PropertyChanged += AddEditEmployeeViewModel_PropertyChanged;
+
         }
+
+        private bool _hourlyRateFieldEnabled;
+
+        public bool HourlyRateFieldEnabled
+        {
+            get { return _hourlyRateFieldEnabled; }
+            set { Set(ref _hourlyRateFieldEnabled, value); }
+        }
+
+        private bool _monthlySalaryFieldEnabled;
+
+        public bool MonthlySalaryFieldEnabled
+        {
+            get { return _monthlySalaryFieldEnabled; }
+            set { Set(ref _monthlySalaryFieldEnabled, value); }
+        }
+
+        private bool _PremiumFieldsEnabled;
+
+        public bool PremiumFieldsEnabled
+        {
+            get { return _PremiumFieldsEnabled; }
+            set { Set(ref _PremiumFieldsEnabled, value); }
+        }
+
 
         private void AddEditEmployeeViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -79,6 +105,12 @@ namespace Biomet.ViewModels
                 || e.PropertyName == nameof(EmployeeNumber))
             {
                 NotifyOfPropertyChange(nameof(CanSave));
+            }
+
+            if (e.PropertyName == nameof(PaymentType))
+            {
+                HourlyRateFieldEnabled = (PaymentType == Employee.EMPLOYEE_TYPE.HourlyRated);
+                MonthlySalaryFieldEnabled = (PaymentType == Employee.EMPLOYEE_TYPE.Salaried);
             }
         }
 
