@@ -5,36 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Biomet.Views"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        mc:Ignorable="d"
-        Title="FingerRegistrationView" Height="300" Width="300" IsCloseButtonEnabled="False" IsMaxRestoreButtonEnabled="False" ResizeMode="NoResize" IsMinButtonEnabled="False" ShowCloseButton="False" ShowMinButton="False" ShowMaxRestoreButton="False">
+        mc:Ignorable="d" Title="Finger Registration" 
+        Height="300" WindowStartupLocation="CenterOwner"
+                      Width="500" 
+                      IsCloseButtonEnabled="False" 
+                      IsMaxRestoreButtonEnabled="False" 
+                      ResizeMode="NoResize" IsMinButtonEnabled="False" ShowCloseButton="False" ShowMinButton="False" ShowMaxRestoreButton="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Employee_FullName"/>
+
+        <TextBlock 
+            x:Name="Employee_FullName" FontSize="18" FontWeight="SemiBold" Margin="4"/>
 
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
-            <Image x:Name="FPImageSource"/>
+
+            <Image 
+                x:Name="FPImageSource" 
+                Margin="6"
+                Stretch="UniformToFill"/>
+
             <TextBox x:Name="Report" 
-                     Margin="2"
+                     Margin="6"
                      VerticalContentAlignment="Top"
                      Grid.Column="1" 
                      VerticalAlignment="Stretch" 
                      AcceptsReturn="True" 
                      TextWrapping="WrapWithOverflow"/>
             <TextBlock Grid.Column="0"
+                       
                        x:Name="StatusText"
                        Grid.Row="1" 
-                       Grid.ColumnSpan="2"/>
+                       Grid.ColumnSpan="2" FontSize="16"/>
         </Grid>
     </Grid>
 </controls:MetroWindow>
