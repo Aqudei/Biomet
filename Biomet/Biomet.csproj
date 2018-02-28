@@ -49,6 +49,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=8c4959082be5c823, processorArchitecture=MSIL">
+      <HintPath>..\packages\CsvHelper.7.0.1\lib\net45\CsvHelper.dll</HintPath>
+    </Reference>
     <Reference Include="DPFPCtlXTypeLibNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPCtlXTypeLibNET.dll</HintPath>
@@ -137,6 +140,7 @@
     <Compile Include="Extentions\DateExtention.cs" />
     <Compile Include="Helpers\BitmapConverter.cs" />
     <Compile Include="Models\Deductions\DeductionsComposite.cs" />
+    <Compile Include="Models\Deductions\DeductionTable.cs" />
     <Compile Include="Models\Deductions\IDeductable.cs" />
     <Compile Include="Models\Deductions\IDeduction.cs" />
     <Compile Include="Models\Deductions\WitholdingTaxDeduction.cs" />
@@ -222,6 +226,9 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Tables\philhealth.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

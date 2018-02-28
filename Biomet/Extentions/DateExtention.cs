@@ -16,7 +16,7 @@ namespace Biomet.Extentions
             return m1 != m2;
         }
 
-        public static int GetIso8601WeekOfYear(DateTime time)
+        public static int GetIso8601WeekOfYear(this DateTime time)
         {
             // Seriously cheat.  If its Monday, Tuesday or Wednesday, then it'll 
             // be the same week# as whatever Thursday, Friday or Saturday are,
@@ -29,6 +29,23 @@ namespace Biomet.Extentions
 
             // Return the week of our adjusted day
             return CultureInfo.InvariantCulture.Calendar.GetWeekOfYear(time, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        }
+
+        public static int GetIso8601WeekOfMonth(this DateTime time)
+        {
+            return (time.GetIso8601WeekOfYear() % 4) + 1;
+        }
+
+        static GregorianCalendar _gc = new GregorianCalendar();
+        public static int GetWeekOfMonth(this DateTime time)
+        {
+            DateTime first = new DateTime(time.Year, time.Month, 1);
+            return time.GetWeekOfYear() - first.GetWeekOfYear() + 1;
+        }
+
+        static int GetWeekOfYear(this DateTime time)
+        {
+            return _gc.GetWeekOfYear(time, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
         }
     }
 }

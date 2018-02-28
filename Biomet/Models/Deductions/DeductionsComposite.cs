@@ -12,17 +12,25 @@ namespace Biomet.Models.Deductions
         private List<IDeduction> _deductions = new List<IDeduction>();
         public DeductionsComposite()
         {
-
+            _deductions.Add(new PhilHealthDeduction());
+            _deductions.Add(new SSSDeduction());
+            _deductions.Add(new WitholdingTaxDeduction());
         }
 
         public void ApplyDeduction(SalariedEmployee employee, PayCheck payCheck)
         {
-            throw new NotImplementedException();
+            foreach (var d in _deductions)
+            {
+                d.ApplyDeduction(employee, payCheck);
+            }
         }
 
         public void ApplyDeduction(HourlyRatedEmployee employee, PayCheck payCheck)
         {
-            throw new NotImplementedException();
+            foreach (var d in _deductions)
+            {
+                d.ApplyDeduction(employee, payCheck);
+            }
         }
     }
 }

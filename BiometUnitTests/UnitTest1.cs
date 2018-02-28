@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Diagnostics;
+using Biomet.Extentions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BiometUnitTests
@@ -15,9 +17,14 @@ namespace BiometUnitTests
         }
 
         [TestMethod]
-        public void CanCreateCorrectEmployeeType()
+        public void CanDetermineWeekNumber()
         {
+            Assert.AreEqual(1, new DateTime(2018, 1, 5).GetWeekOfMonth());
+            Assert.AreEqual(2, new DateTime(2018, 1, 12).GetWeekOfMonth());
+            Assert.AreEqual(3, new DateTime(2018, 1, 19).GetWeekOfMonth());
+            Assert.AreEqual(4, new DateTime(2018, 1, 26).GetWeekOfMonth());
 
+            Debug.WriteLine("Week number of 02 Feb 2018 is: " + new DateTime(2018, 2, 2).GetWeekOfMonth());
         }
     }
 }

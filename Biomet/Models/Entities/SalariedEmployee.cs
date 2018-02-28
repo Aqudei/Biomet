@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Biomet.Extentions;
 
 namespace Biomet.Models.Entities
 {
@@ -18,7 +19,8 @@ namespace Biomet.Models.Entities
 
         protected override bool IsPayDay(DateTime date)
         {
-            return date.DayOfWeek == DayOfWeek.Friday;
+            return date.DayOfWeek == DayOfWeek.Friday
+                   && date.GetWeekOfMonth() < 5;
         }
 
         protected override void OnDeterminePaymentPeriod(PayCheck payCheck)
