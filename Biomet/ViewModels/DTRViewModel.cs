@@ -21,13 +21,14 @@ namespace Biomet.ViewModels
     {
         private Verification Verificator;
 
-        public BindableCollection<DayLog> DayLogs { get; set; } = new BindableCollection<DayLog>();
+        public BindableCollection<DayLog> DayLogs { get; set; }
 
         public DTRViewModel(DTRRepository dtrRepository, IDialogCoordinator dialogCoordinator)
         {
             SetupClock();
-            this.dtrRepository = dtrRepository;
-            this.dialogCoordinator = dialogCoordinator;
+            DayLogs = new BindableCollection<DayLog>();
+            _dtrRepository = dtrRepository;
+            _dialogCoordinator = dialogCoordinator;
             PropertyChanged += DTRViewModel_PropertyChanged;
             RefreshLogs();
         }
@@ -40,7 +41,7 @@ namespace Biomet.ViewModels
                 using (var db = new BiometContext())
                 {
                     var _logdate = DateTime.Now;
-                    DayLogs.AddRange(db.DayLogs.Include("Employee").Where(d => d.LogDate == _logdate));
+                    DayLogs.AddRange(db.DayLogs.Include("Employee").Where(d => d.LogDate == _logdate).ToList());
                 }
             });
         }
@@ -93,8 +94,8 @@ namespace Biomet.ViewModels
         private Employee _employee;
         private string _timeNow;
         private int _selectedLogType = 1;
-        private readonly DTRRepository dtrRepository;
-        private readonly IDialogCoordinator dialogCoordinator;
+        private readonly DTRRepository _dtrRepository;
+        private readonly IDialogCoordinator _dialogCoordinator;
 
         public string DateNow { get => _dateTimeNow; private set => Set(ref _dateTimeNow, value); }
         public string TimeNow { get => _timeNow; private set => Set(ref _timeNow, value); }
@@ -168,15 +169,15 @@ namespace Biomet.ViewModels
         {
             try
             {
-                Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
+                Employee = _dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
                 Employee.SetLog(SelectedLogType);
                 LogTime = DateTime.Now.Date.ToLongTimeString();
-                dtrRepository.Save(Employee);
+                _dtrRepository.Save(Employee);
                 RefreshLogs();
             }
             catch (Exception ex)
             {
-                dialogCoordinator.ShowMessageAsync(this, "Failure", ex.Message, MessageDialogStyle.Affirmative);
+                _dialogCoordinator.ShowMessageAsync(this, "Failure", ex.Message, MessageDialogStyle.Affirmative);
             }
         }
 
