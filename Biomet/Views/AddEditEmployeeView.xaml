@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Biomet.Views"
         mc:Ignorable="d"
-        Title="Add / Edit Employee" Height="400" Width="600" IsCloseButtonEnabled="False" ShowCloseButton="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
+        Title="Add / Edit Employee" Height="600" Width="600" IsCloseButtonEnabled="False" ShowCloseButton="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
     <controls:MetroWindow.Resources>
         
     </controls:MetroWindow.Resources>
@@ -74,6 +74,12 @@
                 <TextBlock Text="Birthday:" Width="90"/>
                 <DatePicker Width="180" x:Name="Birthday" TabIndex="6"/>
             </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Address" Width="110"/>
+                <TextBox Width="180" TabIndex="9"/>
+            </StackPanel>
+
         </StackPanel>
         <StackPanel Grid.Column="1">
             <StackPanel Orientation="Horizontal">
@@ -96,6 +102,20 @@
                 <TextBlock Text="Monthly Salary:" Width="110"/>
                 <TextBox Width="180" x:Name="MonthlySalary" TabIndex="9"/>
             </StackPanel>
+            
+            <!--Gn add ko-->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Department" Width="110"/>
+                <TextBox Width="180" TabIndex="9"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Designation" Width="110"/>
+                <TextBox Width="180" TabIndex="9"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Date of Hired" Width="110"/>
+                <TextBox Width="180" TabIndex="9"/>
+            </StackPanel>
 
             <HeaderedContentControl Header="Premiums" 
                                     HorizontalContentAlignment="Center"
@@ -112,9 +132,9 @@
                               x:Name="HasPhilHealth"
                               Width="100" TabIndex="11">PhilHealth</CheckBox>
 
-                    <!--<CheckBox HorizontalAlignment="Right" 
+                    <CheckBox HorizontalAlignment="Right" 
                               x:Name="HasPagibig"
-                              Width="100" TabIndex="12">Pag-IBIG</CheckBox>-->
+                              Width="100" TabIndex="12">Pag-IBIG</CheckBox>
                 </StackPanel>
             </HeaderedContentControl>
             <StackPanel Orientation="Horizontal" Margin="32,0,0,0">

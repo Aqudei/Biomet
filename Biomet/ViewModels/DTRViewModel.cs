@@ -53,6 +53,7 @@ namespace Biomet.ViewModels
                     {
                         Employee = null;
                         LogTime = "";
+                        
                         break;
                     }
             }
@@ -170,7 +171,8 @@ namespace Biomet.ViewModels
             {
                 Employee = dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
                 Employee.SetLog(SelectedLogType);
-                LogTime = DateTime.Now.Date.ToLongTimeString();
+                // LogTime = DateTime.Now.Date.ToLongTimeString();
+                LogTime = DateTime.Now.ToLongTimeString();
                 dtrRepository.Save(Employee);
                 RefreshLogs();
             }
