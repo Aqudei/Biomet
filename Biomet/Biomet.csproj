@@ -165,6 +165,7 @@
     <Compile Include="Models\Persistence\BiometContext.cs" />
     <Compile Include="Repositories\DTRRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
+    <Compile Include="Services\PayrollService.cs" />
     <Compile Include="ViewModels\AddEditEmployeeViewModel.cs" />
     <Compile Include="ViewModels\CaptureFingerViewModel.cs" />
     <Compile Include="ViewModels\DTRViewModel.cs" />
