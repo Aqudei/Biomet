@@ -34,6 +34,7 @@
                         <DataGridTextColumn Binding="{Binding EmployeeNumber}" FontSize="14" Header="Employee #"/>
                         <DataGridTextColumn Binding="{Binding FullName}" FontSize="14" Header="FULL NAME"/>
                         <DataGridTextColumn Binding="{Binding Sex}" FontSize="14" Header="GENDER"/>
+                   
                         <DataGridTemplateColumn Header="Photo">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

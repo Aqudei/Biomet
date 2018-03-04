@@ -77,8 +77,9 @@
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Address" Width="110"/>
-                <TextBox Width="180" TabIndex="9"/>
+                <TextBox Width="180" TabIndex="7"/>
             </StackPanel>
+            
 
         </StackPanel>
         <StackPanel Grid.Column="1">
@@ -104,7 +105,7 @@
             </StackPanel>
             
             <!--Gn add ko-->
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="Department" Width="110"/>
                 <TextBox Width="180" TabIndex="9"/>
             </StackPanel>
