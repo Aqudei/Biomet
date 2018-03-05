@@ -62,9 +62,7 @@ namespace Biomet.ViewModels
                 { Enum.GetName(typeof(Employee.EMPLOYEE_TYPE),Employee.EMPLOYEE_TYPE.Salaried) , Employee.EMPLOYEE_TYPE.Salaried},
                 { Enum.GetName(typeof(Employee.EMPLOYEE_TYPE),Employee.EMPLOYEE_TYPE.HourlyRated) , Employee.EMPLOYEE_TYPE.HourlyRated},
             };
-
-
-
+            
             Sexes = new Dictionary<string, string>
             {
                 {"Male","Male" },
