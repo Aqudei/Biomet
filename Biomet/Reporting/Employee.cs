@@ -26,7 +26,10 @@ namespace Biomet.Reporting
         public string EmployeeNumber { get => employeeNumber; set => employeeNumber = value; }
         public string FullName { get => fullName; set => fullName = value; }
         public string Sex { get => sex; set => sex = value; }
-
+         
         public string EmployeeType { get; set; }
+        public string DateHired { get; internal set; }
+        public string Designation { get; internal set; }
+        public string Department { get; internal set; }
     }
 }

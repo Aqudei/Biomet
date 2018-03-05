@@ -27,23 +27,23 @@ namespace Biomet.ViewModels
 
         public void ShowEmployeeList()
         {
-            var obj = new PrinterUtility.EscPosEpsonCommands.EscPosEpson();
+            //var obj = new PrinterUtility.EscPosEpsonCommands.EscPosEpson();
 
-            var empList = employeeRepository.GetList();
-            byte[] buffer = new byte[1024];
-            foreach (var item in empList)
-            {
-                var bytes = Encoding.ASCII.GetBytes(item.FullName);
-                buffer = PrinterUtility.PrintExtensions.AddBytes(buffer, bytes);
-                buffer = PrinterUtility.PrintExtensions.AddBytes(buffer, obj.Lf());
-            }
+            //var empList = employeeRepository.GetList();
+            //byte[] buffer = new byte[1024];
+            //foreach (var item in empList)
+            //{
+            //    var bytes = Encoding.ASCII.GetBytes(item.FullName);
+            //    buffer = PrinterUtility.PrintExtensions.AddBytes(buffer, bytes);
+            //    buffer = PrinterUtility.PrintExtensions.AddBytes(buffer, obj.Lf());
+            //}
 
-            PrinterUtility.PrintExtensions.Print(buffer);
+            //PrinterUtility.PrintExtensions.Print(buffer);
 
-            //var empList = new EmployeeList();
-            //empList.SetDataSource(employeeRepository.GetList());
-            //_reportViewer.ViewerCore.ReportSource = empList;
-            //empList.Refresh();
+            var empList = new EmployeeList();
+            empList.SetDataSource(employeeRepository.GetList());
+            _reportViewer.ViewerCore.ReportSource = empList;
+            empList.Refresh();
         }
     }
 }

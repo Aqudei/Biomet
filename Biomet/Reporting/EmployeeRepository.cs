@@ -22,7 +22,11 @@ namespace Biomet.Reporting
                 EmployeeNumber = e.EmployeeNumber,
                 FullName = e.FullName,
                 Sex = e.Sex,
-                EmployeeType = GetEmployeeType(e)
+                EmployeeType = GetEmployeeType(e),
+                DateHired = e.DateHired.HasValue? e.DateHired.Value.ToShortDateString() : "",
+                Designation = e.Designation,
+                Department = e.Department
+
             }).ToList();
         }
 
