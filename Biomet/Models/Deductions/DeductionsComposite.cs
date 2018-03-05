@@ -32,5 +32,8 @@ namespace Biomet.Models.Deductions
                 d.ApplyDeduction(employee, payCheck);
             }
         }
+
+        public void ApplyDeduction(Employee employee, PayCheck payCheck)
+        {}
     }
 }

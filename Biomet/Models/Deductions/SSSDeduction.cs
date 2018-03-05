@@ -16,5 +16,8 @@ namespace Biomet.Models.Deductions
 
         public void ApplyDeduction(HourlyRatedEmployee employee, PayCheck payCheck)
         { }
+
+        public void ApplyDeduction(Employee employee, PayCheck payCheck)
+        {}
     }
 }

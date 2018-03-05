@@ -13,11 +13,15 @@ namespace Biomet.Models
         public Dictionary<string, double> Deductions { get; set; }
         public Dictionary<string, double> Additions { get; set; }
 
-        public PayCheck()
+        public PayCheck(DateTime payDateTime)
         {
+            PaymentDate = payDateTime;
             Deductions = new Dictionary<string, double>();
             Additions = new Dictionary<string, double>();
         }
+
+        public PayCheck()
+        { }
 
         public static PayCheck PayCheckForDay(DateTime date)
         {

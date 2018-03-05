@@ -25,5 +25,10 @@ namespace Biomet.ViewModels
         {
             ActivateItem(IoC.Get<DTRViewModel>());
         }
+
+        public void OpenReporting()
+        {
+            ActivateItem(IoC.Get<ReportingViewModel>());
+        }
     }
 }

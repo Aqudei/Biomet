@@ -11,7 +11,7 @@
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Button  x:Name="NewEmployee" Content="New" Margin="1"/>
             <Button Content="Delete" x:Name="Delete" Margin="1"/>
-            <Button IsEnabled="False" Content="Modify" Margin="1"/>
+            <Button x:Name="Modify" Content="Modify" Margin="1"/>
             <Button x:Name="EnrollFinger" Content="Enroll Finger" Margin="1"/>
             <Button Content="Print Report"></Button>
         </StackPanel>
