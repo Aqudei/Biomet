@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Biomet.Reporting
 {
-    class EmployeeRepository : RepositoryBase
+    class ReportingRepository : RepositoryBase
     {
-        public EmployeeRepository(BiometContext context) : base(context)
+        public ReportingRepository(BiometContext context) : base(context)
         {
         }
 
-        public IEnumerable<Employee> GetList()
+        public IEnumerable<Employee> GetEmployeeList()
         {
             return _context.Employees.ToList().Select(e => new Employee
             {
@@ -23,11 +23,25 @@ namespace Biomet.Reporting
                 FullName = e.FullName,
                 Sex = e.Sex,
                 EmployeeType = GetEmployeeType(e),
-                DateHired = e.DateHired.HasValue? e.DateHired.Value.ToShortDateString() : "",
+                DateHired = e.DateHired.HasValue ? e.DateHired.Value.ToShortDateString() : "",
                 Designation = e.Designation,
                 Department = e.Department
 
             }).ToList();
+        }
+
+        public IEnumerable<DTR> GetDTR()
+        {
+            return _context.DayLogs.Include("Employee").ToList().Select(d => new DTR
+            {
+                EmployeeNumber = d.Employee.EmployeeNumber,
+                FullName = d.Employee.FullName,
+                LogDate = d.LogDate.ToShortDateString(),
+                AMIN = d.AMIN.HasValue ? d.AMIN.Value.ToShortTimeString() : "",
+                AMOUT = d.AMOUT.HasValue ? d.AMOUT.Value.ToShortTimeString() : "",
+                PMIN = d.PMIN.HasValue ? d.PMIN.Value.ToShortTimeString() : "",
+                PMOUT = d.PMOUT.HasValue ? d.PMOUT.Value.ToShortTimeString() : "",
+            });
         }
 
         private string GetEmployeeType(Models.Entities.Employee e)

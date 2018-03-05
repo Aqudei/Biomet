@@ -12,9 +12,9 @@ namespace Biomet.ViewModels
     class ReportingViewModel : Screen
     {
         private CrystalReportsViewer _reportViewer;
-        private readonly EmployeeRepository employeeRepository;
+        private readonly ReportingRepository employeeRepository;
 
-        public ReportingViewModel(EmployeeRepository employeeRepository)
+        public ReportingViewModel(ReportingRepository employeeRepository)
         {
             this.employeeRepository = employeeRepository;
         }
@@ -41,9 +41,17 @@ namespace Biomet.ViewModels
             //PrinterUtility.PrintExtensions.Print(buffer);
 
             var empList = new EmployeeList();
-            empList.SetDataSource(employeeRepository.GetList());
+            empList.SetDataSource(employeeRepository.GetEmployeeList());
             _reportViewer.ViewerCore.ReportSource = empList;
             empList.Refresh();
+        }
+
+        public void ShowDTR()
+        {
+            var dtr = new DTRReportrpt();
+            dtr.SetDataSource(employeeRepository.GetDTR());
+            _reportViewer.ViewerCore.ReportSource = dtr;
+            dtr.Refresh();
         }
     }
 }

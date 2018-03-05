@@ -179,6 +179,13 @@
     <Compile Include="Models\Exceptions\NotPayDayException.cs" />
     <Compile Include="Models\PayCheck.cs" />
     <Compile Include="Models\Persistence\BiometContext.cs" />
+    <Compile Include="Reporting\DTR.cs" />
+    <Compile Include="Reporting\DTRReportrpt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTRReportrpt.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Reporting\Employee.cs" />
     <Compile Include="Reporting\EmployeeList.cs">
       <AutoGen>True</AutoGen>
@@ -187,7 +194,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Repositories\DTRRepository.cs" />
-    <Compile Include="Reporting\EmployeeRepository.cs" />
+    <Compile Include="Reporting\ReportingRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Services\PayrollService.cs" />
     <Compile Include="ViewModels\AddEditEmployeeViewModel.cs" />
@@ -262,6 +269,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reporting\DTRReportrpt.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DTRReportrpt.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\EmployeeList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
