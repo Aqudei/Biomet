@@ -51,6 +51,10 @@ namespace Biomet.ViewModels
 
         }
 
+        public DateTime? DateHired { get => _dateHired; set => Set(ref _dateHired, value); }
+        public string Designation { get => _designation; set => Set(ref _designation, value); }
+        public string Department { get => _department; set => Set(ref _department, value); }
+
         public AddEditEmployeeViewModel(IEventAggregator eventAggregator)
         {
             PaymentTypes = new Dictionary<string, Employee.EMPLOYEE_TYPE>
@@ -170,6 +174,9 @@ namespace Biomet.ViewModels
         }
 
         private string _employeeNumber;
+        private DateTime? _dateHired;
+        private string _designation;
+        private string _department;
 
         public string EmployeeNumber
         {

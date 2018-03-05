@@ -40,7 +40,7 @@ namespace Biomet.ViewModels
                 DayLogs.Clear();
                 using (var db = new BiometContext())
                 {
-                    var _logdate = DateTime.Now;
+                    var _logdate = DateTime.Now.Date;
                     DayLogs.AddRange(db.DayLogs.Include("Employee").Where(d => d.LogDate == _logdate).ToList());
                 }
             });
@@ -54,7 +54,6 @@ namespace Biomet.ViewModels
                     {
                         Employee = null;
                         LogTime = "";
-                        
                         break;
                     }
             }
@@ -173,8 +172,8 @@ namespace Biomet.ViewModels
             {
                 Employee = _dtrRepository.Get(employeeNumber.Trim(), DateTime.Now.Date);
                 Employee.SetLog(SelectedLogType);
-                LogTime = DateTime.Now.Date.ToLongTimeString();
-                dtrRepository.Save(Employee);
+                LogTime = DateTime.Now.ToLongTimeString();
+                _dtrRepository.Save(Employee);
                 RefreshLogs();
             }
             catch (Exception ex)
