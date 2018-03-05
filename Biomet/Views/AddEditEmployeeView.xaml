@@ -107,7 +107,7 @@
             <!--Gn add ko-->
             <StackPanel Orientation="Horizontal" >
                 <TextBlock Text="Department:" Width="110"/>
-                <TextBox Width="180" x:Name="Department" TabIndex="9"/>
+                <ComboBox  Width="180" x:Name="Departments" SelectedValue="{Binding Department}" TabIndex="9"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Designation:"  Width="110"/>

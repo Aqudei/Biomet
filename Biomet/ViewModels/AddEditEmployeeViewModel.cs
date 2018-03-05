@@ -51,6 +51,14 @@ namespace Biomet.ViewModels
 
         }
 
+        public List<string> Departments { get; set; } = new List<string>
+        {
+            "ADMIN",
+            "BSOA",
+            "BEED",
+            "OTHERS"
+        };
+
         public DateTime? DateHired { get => _dateHired; set => Set(ref _dateHired, value); }
         public string Designation { get => _designation; set => Set(ref _designation, value); }
         public string Department { get => _department; set => Set(ref _department, value); }
@@ -62,7 +70,7 @@ namespace Biomet.ViewModels
                 { Enum.GetName(typeof(Employee.EMPLOYEE_TYPE),Employee.EMPLOYEE_TYPE.Salaried) , Employee.EMPLOYEE_TYPE.Salaried},
                 { Enum.GetName(typeof(Employee.EMPLOYEE_TYPE),Employee.EMPLOYEE_TYPE.HourlyRated) , Employee.EMPLOYEE_TYPE.HourlyRated},
             };
-            
+
             Sexes = new Dictionary<string, string>
             {
                 {"Male","Male" },
