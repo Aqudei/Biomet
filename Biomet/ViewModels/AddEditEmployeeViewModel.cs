@@ -75,6 +75,11 @@ namespace Biomet.ViewModels
             PremiumFieldsEnabled = true;
         }
 
+        public void Edit(Employee selectedEmployee)
+        {
+            Mapper.Map(selectedEmployee, this);
+        }
+
         private bool _hourlyRateFieldEnabled;
 
         public bool HourlyRateFieldEnabled
@@ -201,7 +206,12 @@ namespace Biomet.ViewModels
             }
             else
             {
-                //update
+                using (var db = new BiometContext())
+                {
+                    db.Entry(db.Set<Employee>().Attach(emp)).State = System.Data.Entity.EntityState.Modified;
+                    await db.SaveChangesAsync();
+                    await _eventAggregator.PublishOnCurrentThreadAsync(new Events.CrudEvent<Employee>(emp, Events.CrudEvent<Employee>.CrudActionEnum.Updated));
+                }
             }
         }
     }
