@@ -13,7 +13,6 @@
             <Button Content="Delete" x:Name="Delete" Margin="1"/>
             <Button x:Name="Modify" Content="Modify" Margin="1"/>
             <Button x:Name="EnrollFinger" Content="Enroll Finger" Margin="1"/>
-            <Button Content="Print Report"></Button>
         </StackPanel>
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -35,7 +34,6 @@
                         <DataGridTextColumn Binding="{Binding EmployeeNumber}" FontSize="14" Header="Employee #"/>
                         <DataGridTextColumn Binding="{Binding FullName}" FontSize="14" Header="FULL NAME"/>
                         <DataGridTextColumn Binding="{Binding Sex}" FontSize="14" Header="GENDER"/>
-                   
                         <DataGridTemplateColumn Header="Photo">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
