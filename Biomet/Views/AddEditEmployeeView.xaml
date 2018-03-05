@@ -5,10 +5,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Biomet.Views"
-        mc:Ignorable="d"
+        mc:Ignorable="d" 
         Title="Add / Edit Employee" Height="600" Width="600" IsCloseButtonEnabled="False" ShowCloseButton="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" >
     <controls:MetroWindow.Resources>
-        
+
     </controls:MetroWindow.Resources>
     <Grid Margin="5">
         <Grid.Resources>
@@ -79,7 +79,7 @@
                 <TextBlock Text="Address" Width="110"/>
                 <TextBox Width="180" TabIndex="7"/>
             </StackPanel>
-            
+
 
         </StackPanel>
         <StackPanel Grid.Column="1">
@@ -103,19 +103,19 @@
                 <TextBlock Text="Monthly Salary:" Width="110"/>
                 <TextBox Width="180" x:Name="MonthlySalary" TabIndex="9"/>
             </StackPanel>
-            
+
             <!--Gn add ko-->
             <StackPanel Orientation="Horizontal" >
-                <TextBlock Text="Department" Width="110"/>
-                <TextBox Width="180" TabIndex="9"/>
+                <TextBlock Text="Department:" Width="110"/>
+                <TextBox Width="180" x:Name="Department" TabIndex="9"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Designation" Width="110"/>
-                <TextBox Width="180" TabIndex="9"/>
+                <TextBlock Text="Designation:"  Width="110"/>
+                <TextBox Width="180" x:Name="Designation" TabIndex="9"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Date of Hired" Width="110"/>
-                <TextBox Width="180" TabIndex="9"/>
+                <TextBlock Text="Date Hired:" Width="110"/>
+                <DatePicker x:Name="DateHired" Width="180"/>
             </StackPanel>
 
             <HeaderedContentControl Header="Premiums" 

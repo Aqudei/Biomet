@@ -54,13 +54,17 @@ namespace Biomet.Models.Entities
         public string Sex { get; set; }
         public DateTime? Birthday { get; set; }
 
+        public DateTime? DateHired { get; set; }
+        public string Designation { get; set; }
+        public string Department { get; set; }
+
         public virtual PayCheck Pay(DateTime payDateTime)
         {
             var payCheck = new PayCheck();
 
             if (!IsPayDay(payDateTime))
                 throw new Exceptions.NotPayDayException();
-            
+
 
             OnDeterminePaymentPeriod(payCheck);
             OnMakePayment(payCheck);
