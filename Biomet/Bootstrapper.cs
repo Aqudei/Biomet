@@ -52,7 +52,7 @@ namespace Biomet
 
             _simpleContainer.Singleton<BiometContext>();
 
-            _simpleContainer.PerRequest<EmployeeRepository>();
+            _simpleContainer.PerRequest<ReportingRepository>();
 
             _simpleContainer.Singleton<IWindowManager, WindowManager>();
             _simpleContainer.Singleton<IEventAggregator, EventAggregator>();

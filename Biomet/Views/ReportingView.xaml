@@ -13,6 +13,7 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Button Content="Employee List" x:Name="ShowEmployeeList"/>
+            <Button Content="Show DTR" x:Name="ShowDTR"/>
         </StackPanel>
         <cr:CrystalReportsViewer x:Name="ReportViewer" Grid.Row="1" Margin="2"/>
     </Grid>
