@@ -11,9 +11,8 @@
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
             <Button  x:Name="NewEmployee" Content="New" Margin="1"/>
             <Button Content="Delete" x:Name="Delete" Margin="1"/>
-            <Button IsEnabled="True" Content="Update" Margin="1"/>
+            <Button x:Name="Modify" Content="Modify" Margin="1"/>
             <Button x:Name="EnrollFinger" Content="Enroll Finger" Margin="1"/>
-            <Button Content="Print Report"></Button>
         </StackPanel>
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -35,7 +34,6 @@
                         <DataGridTextColumn Binding="{Binding EmployeeNumber}" FontSize="14" Header="Employee #"/>
                         <DataGridTextColumn Binding="{Binding FullName}" FontSize="14" Header="FULL NAME"/>
                         <DataGridTextColumn Binding="{Binding Sex}" FontSize="14" Header="GENDER"/>
-                   
                         <DataGridTemplateColumn Header="Photo">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -73,7 +71,7 @@
                             </GroupBox>
                         </DataTemplate>
                     </Grid.Resources>
-                    
+
                     <ContentControl 
                         FontSize="14" 
                         Content="{Binding SelectedEmployee}" />
@@ -84,7 +82,7 @@
 
             <Button Content="&lt;&lt;" VerticalAlignment="Center"
                 cal:Message.Attach="OpenDTR"/>
-            
+
             <Button Content="&gt;&gt;" VerticalAlignment="Center" Grid.Column="2"
                 cal:Message.Attach="OpenReporting"/>
         </Grid>

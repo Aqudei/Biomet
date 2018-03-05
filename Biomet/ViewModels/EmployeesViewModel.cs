@@ -33,6 +33,7 @@ namespace Biomet.ViewModels
                 {
                     NotifyOfPropertyChange(nameof(CanDelete));
                     NotifyOfPropertyChange(nameof(CanEnrollFinger));
+                    NotifyOfPropertyChange(nameof(CanModify));
                 }
             };
 
@@ -53,6 +54,18 @@ namespace Biomet.ViewModels
                     Employees.AddRange(db.Employees.ToList());
                 }
             });
+        }
+
+
+
+        public bool CanModify => SelectedEmployee != null;
+
+
+        public void Modify()
+        {
+            var vm = IoC.Get<AddEditEmployeeViewModel>();
+            vm.Edit(SelectedEmployee);
+            _windowManager.ShowDialog(vm);
         }
 
         public void NewEmployee()
@@ -100,6 +113,16 @@ namespace Biomet.ViewModels
                 if (message.CrudAction == CrudEvent<Employee>.CrudActionEnum.Deleted)
                 {
                     Employees.Remove(message.Entity);
+                }
+
+                if (message.CrudAction == CrudEvent<Employee>.CrudActionEnum.Updated)
+                {
+                    var _updated = Employees.FirstOrDefault(e => e.Id == message.Entity.Id);
+                    if (_updated != null)
+                    {
+                        Employees.Remove(_updated);
+                        Employees.Add(message.Entity);
+                    }
                 }
 
             }, cancellationToken);
