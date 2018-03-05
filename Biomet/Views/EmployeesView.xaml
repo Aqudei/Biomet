@@ -18,9 +18,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.ColumnSpan="2">
+            <Grid Grid.ColumnSpan="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="3*"/>
@@ -81,7 +82,9 @@
 
             <Button Content="&lt;&lt;" VerticalAlignment="Center"
                 cal:Message.Attach="OpenDTR"/>
-
+            
+            <Button Content="&gt;&gt;" VerticalAlignment="Center" Grid.Column="2"
+                cal:Message.Attach="OpenReporting"/>
         </Grid>
     </DockPanel>
 </UserControl>

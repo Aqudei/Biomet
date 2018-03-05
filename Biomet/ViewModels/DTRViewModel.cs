@@ -103,6 +103,7 @@ namespace Biomet.ViewModels
 
         private void LoadTemplates()
         {
+            Directory.CreateDirectory(Properties.Settings.Default.FPTEMPLATE_DIR);
             _templates.Clear();
             var files = Directory.GetFiles(Properties.Settings.Default.FPTEMPLATE_DIR);
             foreach (var f in files)

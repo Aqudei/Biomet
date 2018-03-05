@@ -113,6 +113,14 @@
     <Reference Include="MySql.Data.Entity.EF6, Version=6.9.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.9.11\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
     </Reference>
+    <Reference Include="SAPBusinessObjects.WPF.Viewer, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\SAPBusinessObjects.WPF.Viewer.dll</HintPath>
+    </Reference>
+    <Reference Include="SAPBusinessObjects.WPF.ViewerShared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SAP BusinessObjects\Crystal Reports for .NET Framework 4.0\Common\SAP BusinessObjects Enterprise XI 4.0\win32_x86\dotnet\SAPBusinessObjects.WPF.ViewerShared.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -166,19 +174,15 @@
     <Compile Include="Models\Exceptions\NotPayDayException.cs" />
     <Compile Include="Models\PayCheck.cs" />
     <Compile Include="Models\Persistence\BiometContext.cs" />
-    <Compile Include="Reporting\EmployeeList.cs" />
-    <Compile Include="Reporting\EmployeeList1.cs">
+    <Compile Include="Reporting\Employee.cs" />
+    <Compile Include="Reporting\EmployeeList.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EmployeeList.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Reporting\ReportingData.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ReportingData.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Repositories\DTRRepository.cs" />
+    <Compile Include="Reporting\EmployeeRepository.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Services\PayrollService.cs" />
     <Compile Include="ViewModels\AddEditEmployeeViewModel.cs" />
@@ -186,6 +190,7 @@
     <Compile Include="ViewModels\DTRViewModel.cs" />
     <Compile Include="ViewModels\EmployeesViewModel.cs" />
     <Compile Include="ViewModels\FingerRegistrationViewModel.cs" />
+    <Compile Include="ViewModels\ReportingViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\AddEditEmployeeView.xaml.cs">
       <DependentUpon>AddEditEmployeeView.xaml</DependentUpon>
@@ -198,6 +203,9 @@
     </Compile>
     <Compile Include="Views\FingerRegistrationView.xaml.cs">
       <DependentUpon>FingerRegistrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportingView.xaml.cs">
+      <DependentUpon>ReportingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -220,6 +228,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FingerRegistrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReportingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,23 +260,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reporting\EmployeeList.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>EmployeeList1.cs</LastGenOutput>
+      <LastGenOutput>EmployeeList.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Reporting\ReportingData.xsc">
-      <DependentUpon>ReportingData.xsd</DependentUpon>
-    </None>
-    <None Include="Reporting\ReportingData.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ReportingData.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Reporting\ReportingData.xss">
-      <DependentUpon>ReportingData.xsd</DependentUpon>
     </None>
     <None Include="Tables\philhealth.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
