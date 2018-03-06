@@ -1,4 +1,5 @@
-﻿using Biomet.Events;
+﻿using Biomet.Dialogs.ViewModels;
+using Biomet.Events;
 using Biomet.Models.Entities;
 using Biomet.Models.Persistence;
 using Caliburn.Micro;
@@ -100,6 +101,16 @@ namespace Biomet.ViewModels
         }
 
         public bool CanDelete { get => SelectedEmployee != null; }
+
+        public void GeneratePayChecks()
+        {
+            var dlg = new DateInputDialogViewModel();
+            var rslt = _windowManager.ShowDialog(dlg);
+            if (rslt.HasValue && rslt.Value)
+            {
+                var payDate = dlg.PayDate.Value;
+            }
+        }
 
         public Task HandleAsync(CrudEvent<Employee> message, CancellationToken cancellationToken)
         {
