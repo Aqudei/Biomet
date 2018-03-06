@@ -10,6 +10,7 @@ namespace Biomet.Models
     {
         public DateTime PaymentDate { get; private set; }
         public DateTime StartOfPaymentPeriod { get; internal set; }
+        public double BasePay { get; set; }
         public Dictionary<string, double> Deductions { get; set; }
         public Dictionary<string, double> Additions { get; set; }
 
@@ -29,6 +30,20 @@ namespace Biomet.Models
             {
                 PaymentDate = date.Date
             };
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("------------------------");
+            sb.AppendLine("-----Payroll System-----");
+            sb.AppendLine("------------------------");
+            sb.AppendLine();
+            sb.AppendFormat("Date: {0}\n", PaymentDate.ToShortDateString());
+            sb.AppendFormat("Base Pay: {0}\n", BasePay);
+            sb.AppendLine("-----Additions-----");
+            sb.AppendLine("-----Deduction-----");
+            return sb.ToString();
         }
     }
 }

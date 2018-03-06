@@ -9,10 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using Biomet.Extentions;
 
 namespace Biomet.ViewModels
 {
-    class EmployeesViewModel : Screen, IHandle<CrudEvent<Employee>>
+    internal sealed class EmployeesViewModel : Screen, IHandle<CrudEvent<Employee>>
     {
         private readonly IWindowManager _windowManager;
         private readonly IEventAggregator _eventAggregator;
@@ -22,7 +24,8 @@ namespace Biomet.ViewModels
 
         public Employee SelectedEmployee
         {
-            get => _selectedEmployee; set => Set(ref _selectedEmployee, value);
+            get => _selectedEmployee;
+            set => Set(ref _selectedEmployee, value);
         }
 
         public EmployeesViewModel(IWindowManager windowManager, IEventAggregator eventAggregator)
@@ -35,6 +38,10 @@ namespace Biomet.ViewModels
                     NotifyOfPropertyChange(nameof(CanDelete));
                     NotifyOfPropertyChange(nameof(CanEnrollFinger));
                     NotifyOfPropertyChange(nameof(CanModify));
+
+                    PhotoSource = string.IsNullOrWhiteSpace(SelectedEmployee?.Photo)
+                        ? null
+                        : SelectedEmployee.Photo.BitmapFromStringPath();
                 }
             };
 
@@ -50,13 +57,12 @@ namespace Biomet.ViewModels
 
             Task.Run(() =>
             {
-                using (var db = new Models.Persistence.BiometContext())
+                using (var db = new BiometContext())
                 {
                     Employees.AddRange(db.Employees.ToList());
                 }
             });
         }
-
 
 
         public bool CanModify => SelectedEmployee != null;
@@ -74,13 +80,16 @@ namespace Biomet.ViewModels
             _windowManager.ShowDialog(IoC.Get<AddEditEmployeeViewModel>());
         }
 
-        public bool CanEnrollFinger
+        public bool CanEnrollFinger => SelectedEmployee != null;
+
+        private ImageSource _photoSource;
+
+        public ImageSource PhotoSource
         {
-            get
-            {
-                return SelectedEmployee != null;
-            }
+            get => _photoSource;
+            set => Set(ref _photoSource, value);
         }
+
 
         public void EnrollFinger()
         {
@@ -96,19 +105,26 @@ namespace Biomet.ViewModels
                 db.Employees.Attach(SelectedEmployee);
                 db.Employees.Remove(SelectedEmployee);
                 await db.SaveChangesAsync();
-                await _eventAggregator.PublishOnCurrentThreadAsync(new Events.CrudEvent<Employee>(SelectedEmployee, CrudEvent<Employee>.CrudActionEnum.Deleted));
+                await _eventAggregator.PublishOnCurrentThreadAsync(new CrudEvent<Employee>(SelectedEmployee,
+                    CrudEvent<Employee>.CrudActionEnum.Deleted));
             }
         }
 
-        public bool CanDelete { get => SelectedEmployee != null; }
+        public bool CanDelete => SelectedEmployee != null;
 
         public void GeneratePayChecks()
         {
             var dlg = new DateInputDialogViewModel();
             var rslt = _windowManager.ShowDialog(dlg);
-            if (rslt.HasValue && rslt.Value)
+            if (!rslt.HasValue || !rslt.Value) return;
+
+            if (dlg.PayDate == null) return;
+
+            var payDate = dlg.PayDate.Value;
+
+            foreach (var employee in Employees)
             {
-                var payDate = dlg.PayDate.Value;
+                var pc = employee.Pay(payDate.Date);
             }
         }
 
@@ -116,26 +132,24 @@ namespace Biomet.ViewModels
         {
             return Task.Run(() =>
             {
-                if (message.CrudAction == CrudEvent<Employee>.CrudActionEnum.Created)
+                switch (message.CrudAction)
                 {
-                    Employees.Add(message.Entity);
-                }
-
-                if (message.CrudAction == CrudEvent<Employee>.CrudActionEnum.Deleted)
-                {
-                    Employees.Remove(message.Entity);
-                }
-
-                if (message.CrudAction == CrudEvent<Employee>.CrudActionEnum.Updated)
-                {
-                    var _updated = Employees.FirstOrDefault(e => e.Id == message.Entity.Id);
-                    if (_updated != null)
-                    {
-                        Employees.Remove(_updated);
+                    case CrudEvent<Employee>.CrudActionEnum.Created:
                         Employees.Add(message.Entity);
-                    }
-                }
+                        break;
+                    case CrudEvent<Employee>.CrudActionEnum.Deleted:
+                        Employees.Remove(message.Entity);
+                        break;
+                    case CrudEvent<Employee>.CrudActionEnum.Updated:
+                        var updated = Employees.FirstOrDefault(e => e.Id == message.Entity.Id);
+                        if (updated != null)
+                        {
+                            Employees.Remove(updated);
+                            Employees.Add(message.Entity);
+                        }
 
+                        break;
+                }
             }, cancellationToken);
         }
     }

@@ -63,12 +63,10 @@ namespace Biomet.Models.Entities
             var payCheck = new PayCheck();
 
             if (!IsPayDay(payDateTime))
-                throw new Exceptions.NotPayDayException();
-
+                return null;
 
             OnDeterminePaymentPeriod(payCheck);
             OnMakePayment(payCheck);
-
             return payCheck;
         }
 

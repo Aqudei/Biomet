@@ -166,6 +166,7 @@
     </Compile>
     <Compile Include="Events\CrudEvent.cs" />
     <Compile Include="Extentions\DateExtention.cs" />
+    <Compile Include="Extentions\StringExtentions.cs" />
     <Compile Include="Helpers\BitmapConverter.cs" />
     <Compile Include="Models\Deductions\DeductionsComposite.cs" />
     <Compile Include="Models\Deductions\DeductionTable.cs" />

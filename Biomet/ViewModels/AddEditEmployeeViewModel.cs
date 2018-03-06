@@ -3,30 +3,32 @@ using Biomet.Models.Entities;
 using Biomet.Models.Persistence;
 using Caliburn.Micro;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using System.Windows.Media;
+using Biomet.Extentions;
 
 namespace Biomet.ViewModels
 {
-    sealed class AddEditEmployeeViewModel : Screen
+    internal sealed class AddEditEmployeeViewModel : Screen
     {
         private string _photo;
         private double _monthlySalary;
         private bool _hasPhilHealth;
-        private bool _hasSSS;
+        private bool _has_SSS;
         private bool _hasPagibig;
         private double _ratePerHour;
 
         public string Photo
         {
             get => _photo;
-            set => Set(ref _photo, value);
+            set
+            {
+                Set(ref _photo, value);
+                PhotoSource = string.IsNullOrWhiteSpace(value) ? null : value.BitmapFromStringPath();
+            }
         }
 
         public void BrowsePhoto()
@@ -43,12 +45,8 @@ namespace Biomet.ViewModels
             })
             {
                 var rslt = dialog.ShowDialog();
-                if (rslt == CommonFileDialogResult.Ok)
-                {
-                    Photo = dialog.FileName;
-                }
-            };
-
+                if (rslt == CommonFileDialogResult.Ok) Photo = dialog.FileName;
+            }
         }
 
         public List<string> Departments { get; set; } = new List<string>
@@ -59,22 +57,42 @@ namespace Biomet.ViewModels
             "OTHERS"
         };
 
-        public DateTime? DateHired { get => _dateHired; set => Set(ref _dateHired, value); }
-        public string Designation { get => _designation; set => Set(ref _designation, value); }
-        public string Department { get => _department; set => Set(ref _department, value); }
+        public DateTime? DateHired
+        {
+            get => _dateHired;
+            set => Set(ref _dateHired, value);
+        }
+
+        public string Designation
+        {
+            get => _designation;
+            set => Set(ref _designation, value);
+        }
+
+        public string Department
+        {
+            get => _department;
+            set => Set(ref _department, value);
+        }
 
         public AddEditEmployeeViewModel(IEventAggregator eventAggregator)
         {
             PaymentTypes = new Dictionary<string, Employee.EMPLOYEE_TYPE>
             {
-                { Enum.GetName(typeof(Employee.EMPLOYEE_TYPE),Employee.EMPLOYEE_TYPE.Salaried) , Employee.EMPLOYEE_TYPE.Salaried},
-                { Enum.GetName(typeof(Employee.EMPLOYEE_TYPE),Employee.EMPLOYEE_TYPE.HourlyRated) , Employee.EMPLOYEE_TYPE.HourlyRated},
+                {
+                    Enum.GetName(typeof(Employee.EMPLOYEE_TYPE), Employee.EMPLOYEE_TYPE.Salaried),
+                    Employee.EMPLOYEE_TYPE.Salaried
+                },
+                {
+                    Enum.GetName(typeof(Employee.EMPLOYEE_TYPE), Employee.EMPLOYEE_TYPE.HourlyRated),
+                    Employee.EMPLOYEE_TYPE.HourlyRated
+                },
             };
 
             Sexes = new Dictionary<string, string>
             {
-                {"Male","Male" },
-                {"Female","Female" }
+                {"Male", "Male"},
+                {"Female", "Female"}
             };
             Sex = "Male";
 
@@ -94,24 +112,24 @@ namespace Biomet.ViewModels
 
         public bool HourlyRateFieldEnabled
         {
-            get { return _hourlyRateFieldEnabled; }
-            set { Set(ref _hourlyRateFieldEnabled, value); }
+            get => _hourlyRateFieldEnabled;
+            set => Set(ref _hourlyRateFieldEnabled, value);
         }
 
         private bool _monthlySalaryFieldEnabled;
 
         public bool MonthlySalaryFieldEnabled
         {
-            get { return _monthlySalaryFieldEnabled; }
-            set { Set(ref _monthlySalaryFieldEnabled, value); }
+            get => _monthlySalaryFieldEnabled;
+            set => Set(ref _monthlySalaryFieldEnabled, value);
         }
 
-        private bool _PremiumFieldsEnabled;
+        private bool _premiumFieldsEnabled;
 
         public bool PremiumFieldsEnabled
         {
-            get { return _PremiumFieldsEnabled; }
-            set { Set(ref _PremiumFieldsEnabled, value); }
+            get => _premiumFieldsEnabled;
+            set => Set(ref _premiumFieldsEnabled, value);
         }
 
 
@@ -121,14 +139,12 @@ namespace Biomet.ViewModels
                 || e.PropertyName == nameof(MiddleName)
                 || e.PropertyName == nameof(FirstName)
                 || e.PropertyName == nameof(EmployeeNumber))
-            {
                 NotifyOfPropertyChange(nameof(CanSave));
-            }
 
             if (e.PropertyName == nameof(PaymentType))
             {
-                HourlyRateFieldEnabled = (PaymentType == Employee.EMPLOYEE_TYPE.HourlyRated);
-                MonthlySalaryFieldEnabled = (PaymentType == Employee.EMPLOYEE_TYPE.Salaried);
+                HourlyRateFieldEnabled = PaymentType == Employee.EMPLOYEE_TYPE.HourlyRated;
+                MonthlySalaryFieldEnabled = PaymentType == Employee.EMPLOYEE_TYPE.Salaried;
             }
         }
 
@@ -157,32 +173,88 @@ namespace Biomet.ViewModels
         }
 
         public Dictionary<string, Employee.EMPLOYEE_TYPE> PaymentTypes { get; }
-        public string Sex { get => _sex; set => Set(ref _sex, value); }
-        public double MonthlySalary { get => _monthlySalary; set => Set(ref _monthlySalary, value); }
-        public bool HasPhilHealth { get => _hasPhilHealth; set => Set(ref _hasPhilHealth, value); }
-        public bool HasSSS { get => _hasSSS; set => Set(ref _hasSSS, value); }
-        public bool HasPagibig { get => _hasPagibig; set => Set(ref _hasPagibig, value); }
-        public double RatePerHour { get => _ratePerHour; set => Set(ref _ratePerHour, value); }
-        public int Id { get => _id; set => Set(ref _id, value); }
-        public string FirstName { get => _firstName; set => Set(ref _firstName, value); }
-        public string MiddleName { get => _middleName; set => Set(ref _middleName, value); }
-        public string LastName { get => _lastName; set => Set(ref _lastName, value); }
-        public DateTime? Birthday { get => _birthday; set => Set(ref _birthday, value); }
-        public string Birthplace { get => _birthplace; set => Set(ref _birthplace, value); }
 
-        public bool CanSave
+        public string Sex
         {
-            get
-            {
-                return !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(MiddleName)
-                    && !string.IsNullOrWhiteSpace(LastName) && !string.IsNullOrWhiteSpace(EmployeeNumber);
-            }
+            get => _sex;
+            set => Set(ref _sex, value);
         }
+
+        public double MonthlySalary
+        {
+            get => _monthlySalary;
+            set => Set(ref _monthlySalary, value);
+        }
+
+        public bool HasPhilHealth
+        {
+            get => _hasPhilHealth;
+            set => Set(ref _hasPhilHealth, value);
+        }
+
+        public bool HasSSS
+        {
+            get => _has_SSS;
+            set => Set(ref _has_SSS, value);
+        }
+
+        public bool HasPagibig
+        {
+            get => _hasPagibig;
+            set => Set(ref _hasPagibig, value);
+        }
+
+        public double RatePerHour
+        {
+            get => _ratePerHour;
+            set => Set(ref _ratePerHour, value);
+        }
+
+        public int Id
+        {
+            get => _id;
+            set => Set(ref _id, value);
+        }
+
+        public string FirstName
+        {
+            get => _firstName;
+            set => Set(ref _firstName, value);
+        }
+
+        public string MiddleName
+        {
+            get => _middleName;
+            set => Set(ref _middleName, value);
+        }
+
+        public string LastName
+        {
+            get => _lastName;
+            set => Set(ref _lastName, value);
+        }
+
+        public DateTime? Birthday
+        {
+            get => _birthday;
+            set => Set(ref _birthday, value);
+        }
+
+        public string Birthplace
+        {
+            get => _birthplace;
+            set => Set(ref _birthplace, value);
+        }
+
+        public bool CanSave => !string.IsNullOrWhiteSpace(FirstName) && !string.IsNullOrWhiteSpace(MiddleName)
+                                                                     && !string.IsNullOrWhiteSpace(LastName) &&
+                                                                     !string.IsNullOrWhiteSpace(EmployeeNumber);
 
         private string _employeeNumber;
         private DateTime? _dateHired;
         private string _designation;
         private string _department;
+        private ImageSource _photoSource;
 
         public string EmployeeNumber
         {
@@ -190,9 +262,14 @@ namespace Biomet.ViewModels
             set => Set(ref _employeeNumber, value);
         }
 
+        public ImageSource PhotoSource
+        {
+            get => _photoSource;
+            set => Set(ref _photoSource, value);
+        }
+
         public async void Save()
         {
-
             if (Photo != null)
             {
                 Directory.CreateDirectory(Properties.Settings.Default.PHOTOS_DIR);
@@ -209,23 +286,21 @@ namespace Biomet.ViewModels
             Mapper.Map(this, emp);
 
             if (Id <= 0)
-            {
                 using (var db = new BiometContext())
                 {
                     db.Employees.Add(emp);
                     await db.SaveChangesAsync();
-                    await _eventAggregator.PublishOnCurrentThreadAsync(new Events.CrudEvent<Employee>(emp, Events.CrudEvent<Employee>.CrudActionEnum.Created));
+                    await _eventAggregator.PublishOnCurrentThreadAsync(
+                        new Events.CrudEvent<Employee>(emp, Events.CrudEvent<Employee>.CrudActionEnum.Created));
                 }
-            }
             else
-            {
                 using (var db = new BiometContext())
                 {
                     db.Entry(db.Set<Employee>().Attach(emp)).State = System.Data.Entity.EntityState.Modified;
                     await db.SaveChangesAsync();
-                    await _eventAggregator.PublishOnCurrentThreadAsync(new Events.CrudEvent<Employee>(emp, Events.CrudEvent<Employee>.CrudActionEnum.Updated));
+                    await _eventAggregator.PublishOnCurrentThreadAsync(
+                        new Events.CrudEvent<Employee>(emp, Events.CrudEvent<Employee>.CrudActionEnum.Updated));
                 }
-            }
         }
     }
 }
