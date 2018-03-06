@@ -13,6 +13,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+       
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -22,6 +23,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
+             
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
@@ -35,8 +37,8 @@
                     VerticalAlignment="Center"
                     cal:Message.Attach="OpenManager()"/>
 
-            <GroupBox Header="DTR FOR TODAY" Margin="4">
-                <DataGrid x:Name="DayLogs" AutoGenerateColumns="False" IsReadOnly="True">
+            <GroupBox Header="DTR FOR TODAY" Margin="4" >
+                <DataGrid x:Name="DayLogs" AutoGenerateColumns="False" IsReadOnly="True" FontSize="15">
                     <DataGrid.Effect>
                         <DropShadowEffect/>
                     </DataGrid.Effect>

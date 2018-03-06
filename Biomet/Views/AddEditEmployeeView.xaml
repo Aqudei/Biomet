@@ -59,7 +59,7 @@
                 <TextBox Width="180" x:Name="LastName" TabIndex="3" />
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Sex:" Width="90"/>
+                <TextBlock Text="Gender:" Width="90"/>
                 <ComboBox Width="180" 
                           SelectedValuePath="Value"
                           DisplayMemberPath="Key"
@@ -76,7 +76,15 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Address" Width="110"/>
+                <TextBlock Text="Address:" Width="90"/>
+                <TextBox Width="180" TabIndex="7"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Contact #:" Width="90"/>
+                <TextBox Width="180" TabIndex="7"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Status:" Width="90"/>
                 <TextBox Width="180" TabIndex="7"/>
             </StackPanel>
 
@@ -118,7 +126,7 @@
                 <DatePicker x:Name="DateHired" Width="180"/>
             </StackPanel>
 
-            <HeaderedContentControl Header="Premiums" 
+            <HeaderedContentControl Header="Deductions:" 
                                     HorizontalContentAlignment="Center"
                                     Margin="4" 
                                     Visibility="{Binding PremiumFieldsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"

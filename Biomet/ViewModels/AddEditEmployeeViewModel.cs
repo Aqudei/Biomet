@@ -53,6 +53,8 @@ namespace Biomet.ViewModels
 
         public List<string> Departments { get; set; } = new List<string>
         {
+            "BSIT",
+            "BSHRM",
             "ADMIN",
             "BSOA",
             "BEED",
