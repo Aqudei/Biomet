@@ -154,6 +154,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Words.NET, Version=1.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.1.0\lib\Xceed.Words.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -168,9 +171,8 @@
     <Compile Include="Extentions\DateExtention.cs" />
     <Compile Include="Extentions\StringExtentions.cs" />
     <Compile Include="Helpers\BitmapConverter.cs" />
-    <Compile Include="Models\Deductions\DeductionsComposite.cs" />
+    <Compile Include="Models\Deductions\DeductorService.cs" />
     <Compile Include="Models\Deductions\DeductionTable.cs" />
-    <Compile Include="Models\Deductions\IDeductable.cs" />
     <Compile Include="Models\Deductions\IDeduction.cs" />
     <Compile Include="Models\Deductions\WitholdingTaxDeduction.cs" />
     <Compile Include="Models\Deductions\SSSDeduction.cs" />
@@ -288,6 +290,9 @@
       <LastGenOutput>EmployeeList.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
+    <None Include="PAYROLL.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

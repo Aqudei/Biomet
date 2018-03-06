@@ -8,5 +8,11 @@
     <Setting Name="PHOTOS_DIR" Type="System.String" Scope="User">
       <Value Profile="(Default)">Photos</Value>
     </Setting>
+    <Setting Name="RECEIPT_FILE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">PAYROLL.docx</Value>
+    </Setting>
+    <Setting Name="RECEIPT_DIR" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Receipts</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

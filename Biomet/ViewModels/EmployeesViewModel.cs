@@ -5,18 +5,23 @@ using Biomet.Models.Persistence;
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Biomet.Extentions;
+using Biomet.Models.Deductions;
+using Xceed.Words.NET;
 
 namespace Biomet.ViewModels
 {
     internal sealed class EmployeesViewModel : Screen, IHandle<CrudEvent<Employee>>
     {
         private readonly IWindowManager _windowManager;
+        private readonly DeductorService _deductorService = new DeductorService();
         private readonly IEventAggregator _eventAggregator;
         private Employee _selectedEmployee;
 
@@ -116,6 +121,7 @@ namespace Biomet.ViewModels
         {
             var dlg = new DateInputDialogViewModel();
             var rslt = _windowManager.ShowDialog(dlg);
+
             if (!rslt.HasValue || !rslt.Value) return;
 
             if (dlg.PayDate == null) return;
@@ -125,6 +131,34 @@ namespace Biomet.ViewModels
             foreach (var employee in Employees)
             {
                 var pc = employee.Pay(payDate.Date);
+                using (var docx = DocX.Load(Properties.Settings.Default.RECEIPT_FILE))
+                {
+                    docx.ReplaceText("{DATE}", payDate.Date.ToShortDateString());
+                    docx.ReplaceText("{BASEPAY}", "" + pc.BasePay);
+
+
+                    _deductorService.ApplyDeduction(employee, pc);
+
+                    var sb = new StringBuilder();
+                    foreach (var deduction in pc.Deductions)
+                    {
+                        sb.AppendLine(deduction.Key + "------------" + deduction.Value);
+                    }
+                    docx.ReplaceText("{DEDUCTIONS}", sb.ToString());
+                    sb.Clear();
+                    foreach (var addition in pc.Additions)
+                    {
+                        sb.AppendLine(addition.Key + "------------" + addition.Value);
+                    }
+                    docx.ReplaceText("{ADDITIONS}", sb.ToString());
+                    
+                    var fname = Path.Combine(Properties.Settings.Default.RECEIPT_DIR,
+                        employee.LastName + "-" + employee.EmployeeNumber + "_" + payDate.Date.ToShortDateString()
+                            .Replace("/", "_") + ".docx");
+                    docx.SaveAs(fname);
+                }
+
+                Process.Start("explorer.exe ", Properties.Settings.Default.RECEIPT_DIR);
             }
         }
 

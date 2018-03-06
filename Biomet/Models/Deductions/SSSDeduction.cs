@@ -1,23 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Biomet.Models.Entities;
 
+
 namespace Biomet.Models.Deductions
 {
     public class SSSDeduction : IDeduction
     {
-        public void ApplyDeduction(SalariedEmployee employee, PayCheck payCheck)
+        private List<DeductionTable> _lookupTable;
+
+        public SSSDeduction()
         {
-            throw new NotImplementedException();
+            using (var csvReader = new CsvHelper.CsvReader(File.OpenText("Tables/sss.csv")))
+            {
+                csvReader.Read();
+                csvReader.ReadHeader();
+
+                _lookupTable = csvReader.GetRecords<DeductionTable>().ToList();
+            }
         }
 
-        public void ApplyDeduction(HourlyRatedEmployee employee, PayCheck payCheck)
-        { }
-
         public void ApplyDeduction(Employee employee, PayCheck payCheck)
-        {}
+        {
+            if (employee is SalariedEmployee salariedEmployee && salariedEmployee.HasSSS)
+            {
+                var row = _lookupTable.FirstOrDefault(lookup =>
+                    lookup.A <= salariedEmployee.MonthlySalary && lookup.B >= salariedEmployee.MonthlySalary);
+                if (row == null)
+                {
+                    throw new ArgumentException("Unknown salary range");
+                }
+
+                payCheck.Deductions.Add("SSS", row.Deduction / 4);
+            }
+        }
     }
 }

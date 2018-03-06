@@ -7,33 +7,22 @@ using Biomet.Models.Entities;
 
 namespace Biomet.Models.Deductions
 {
-    public class DeductionsComposite : IDeduction
+    public class DeductorService : IDeduction
     {
         private List<IDeduction> _deductions = new List<IDeduction>();
-        public DeductionsComposite()
+        public DeductorService()
         {
             _deductions.Add(new PhilHealthDeduction());
             _deductions.Add(new SSSDeduction());
             _deductions.Add(new WitholdingTaxDeduction());
         }
-
-        public void ApplyDeduction(SalariedEmployee employee, PayCheck payCheck)
-        {
-            foreach (var d in _deductions)
-            {
-                d.ApplyDeduction(employee, payCheck);
-            }
-        }
-
-        public void ApplyDeduction(HourlyRatedEmployee employee, PayCheck payCheck)
-        {
-            foreach (var d in _deductions)
-            {
-                d.ApplyDeduction(employee, payCheck);
-            }
-        }
-
+        
         public void ApplyDeduction(Employee employee, PayCheck payCheck)
-        {}
+        {
+            foreach (var d in _deductions)
+            {
+                d.ApplyDeduction(employee, payCheck);
+            }
+        }
     }
 }

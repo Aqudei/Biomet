@@ -10,11 +10,11 @@ namespace Biomet.Models.Entities
 {
     public class SalariedEmployee : Employee
     {
-        public int MonthlySalary { get; set; }
+        public double MonthlySalary { get; set; }
 
         protected override void OnMakePayment(PayCheck payCheck)
         {
-
+            payCheck.BasePay = MonthlySalary / 4;
         }
 
         protected override bool IsPayDay(DateTime date)
