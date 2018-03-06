@@ -46,5 +46,29 @@ namespace Biomet.Properties {
                 this["PHOTOS_DIR"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("PAYROLL.docx")]
+        public string RECEIPT_FILE {
+            get {
+                return ((string)(this["RECEIPT_FILE"]));
+            }
+            set {
+                this["RECEIPT_FILE"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Receipts")]
+        public string RECEIPT_DIR {
+            get {
+                return ((string)(this["RECEIPT_DIR"]));
+            }
+            set {
+                this["RECEIPT_DIR"] = value;
+            }
+        }
     }
 }

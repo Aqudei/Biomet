@@ -8,6 +8,7 @@ using Caliburn.Micro;
 using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,8 @@ namespace Biomet
 
         protected override void Configure()
         {
+            Directory.CreateDirectory(Properties.Settings.Default.RECEIPT_DIR);
+
             _simpleContainer.Instance(_simpleContainer);
 
             _simpleContainer.PerRequest<ShellViewModel>();

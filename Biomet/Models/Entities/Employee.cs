@@ -39,11 +39,7 @@ namespace Biomet.Models.Entities
         public List<DayLog> DayLogs { get; set; }
 
         public void AddDayLog(DayLog dayLog)
-        {
-
-        }
-
-
+        { }
 
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -60,15 +56,12 @@ namespace Biomet.Models.Entities
 
         public virtual PayCheck Pay(DateTime payDateTime)
         {
-            var payCheck = new PayCheck();
-
             if (!IsPayDay(payDateTime))
-                throw new Exceptions.NotPayDayException();
+                return null;
 
-
+            var payCheck = PayCheck.PayCheckForDay(payDateTime);
             OnDeterminePaymentPeriod(payCheck);
             OnMakePayment(payCheck);
-
             return payCheck;
         }
 

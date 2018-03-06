@@ -22,18 +22,20 @@ namespace Biomet.Models.Deductions
                 csvReader.Read();
                 csvReader.ReadHeader();
 
-                _lookupTable = csvReader.GetRecords<DeductionTable>();
+                _lookupTable = csvReader.GetRecords<DeductionTable>().ToList();
             }
         }
 
-        public void ApplyDeduction(SalariedEmployee employee, PayCheck payCheck)
+        public void ApplyDeductionToSalariedEmployee(SalariedEmployee employee, PayCheck payCheck)
         {
             if (!employee.HasPhilHealth) return;
             if (payCheck.Deductions.ContainsKey(DEDUCTION_LABEL)) return;
 
 
             var row = _lookupTable
-                .FirstOrDefault(l => employee.MonthlySalary >= l.A && employee.MonthlySalary <= l.B);
+                .FirstOrDefault(lookup => lookup.A <= employee.MonthlySalary && lookup.B >= employee.MonthlySalary);
+
+
             if (row == null)
                 throw new ArgumentException("Salary not found on the PhilHealth Table");
 
@@ -41,10 +43,12 @@ namespace Biomet.Models.Deductions
             payCheck.Deductions.Add(DEDUCTION_LABEL, deduction / 4);
         }
 
-        public void ApplyDeduction(HourlyRatedEmployee employee, PayCheck payCheck)
-        { }
-
         public void ApplyDeduction(Employee employee, PayCheck payCheck)
-        { }
+        {
+            if (employee is SalariedEmployee salariedEmployee)
+            {
+                ApplyDeductionToSalariedEmployee(salariedEmployee, payCheck);
+            }
+        }
     }
 }

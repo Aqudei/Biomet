@@ -74,7 +74,7 @@
                         FontSize="14" 
                         Content="{Binding SelectedEmployee}" />
 
-                    <Image Grid.Column="1" x:Name="SelectedEmployee_Photo"/>
+                    <Image Grid.Column="1" x:Name="PhotoSource"/>
                 </Grid>
 
 

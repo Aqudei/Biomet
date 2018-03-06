@@ -11,7 +11,7 @@ namespace Biomet.Services
 {
     public class PayrollService
     {
-        private DeductionsComposite _deductionsComposite = new DeductionsComposite();
+        private DeductorService _deductorService = new DeductorService();
 
         public PayCheck GeneratePayCheck(int employeeId, DateTime logDate)
         {
@@ -21,7 +21,7 @@ namespace Biomet.Services
                 if (employee == null) return null;
 
                 var payCheck = employee.Pay(DateTime.Now);
-                _deductionsComposite.ApplyDeduction(employee, payCheck);
+                _deductorService.ApplyDeduction(employee, payCheck);
                 return payCheck;
             }
         }

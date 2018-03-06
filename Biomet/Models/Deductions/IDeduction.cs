@@ -10,8 +10,6 @@ namespace Biomet.Models.Deductions
     //Deduction Visitor
     public interface IDeduction
     {
-        void ApplyDeduction(SalariedEmployee employee, PayCheck payCheck);
-        void ApplyDeduction(HourlyRatedEmployee employee, PayCheck payCheck);
         void ApplyDeduction(Employee employee, PayCheck payCheck);
     }
 }
