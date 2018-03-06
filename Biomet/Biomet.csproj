@@ -160,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dialogs\ViewModels\DateInputDialogViewModel.cs" />
+    <Compile Include="Dialogs\Views\DateInputDialogView.xaml.cs">
+      <DependentUpon>DateInputDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Events\CrudEvent.cs" />
     <Compile Include="Extentions\DateExtention.cs" />
     <Compile Include="Helpers\BitmapConverter.cs" />
@@ -227,6 +231,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Dialogs\Views\DateInputDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddEditEmployeeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
