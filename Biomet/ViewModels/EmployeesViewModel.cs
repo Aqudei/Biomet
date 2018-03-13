@@ -127,7 +127,15 @@ namespace Biomet.ViewModels
                     {
                         var payCheck = emp.Pay(dateDlg.PayDate.Value);
                         File.WriteAllText(printFile, payCheck.ToPrintFormat());
-                        Process.Start("print", string.Format("/D:\"\\\\%COMPUTERNAME%\\XP58\" \"{0}\"", printFile));
+
+                        var startupInfo = new ProcessStartInfo("print", string.Format("/D:\"\\\\%COMPUTERNAME%\\XP58\" \"{0}\"", printFile));
+                        startupInfo.RedirectStandardOutput = true;
+                        startupInfo.UseShellExecute = false;
+                        var p = new Process();
+                        p.StartInfo = startupInfo;
+                        p.Start();
+                        File.WriteAllText("printlog.txt", p.StandardOutput.ReadToEnd());
+
                     }
                 }
             }
