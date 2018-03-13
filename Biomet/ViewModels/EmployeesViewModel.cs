@@ -119,7 +119,7 @@ namespace Biomet.ViewModels
 
         public void GeneratePayChecks()
         {
-            var dateDlg = new Dialogs.ViewModels.DateInputDialogViewModel();
+            var dateDlg = new DateInputDialogViewModel();
             var rslt = _windowManager.ShowDialog(dateDlg);
             if (rslt.HasValue && rslt.Value)
             {
@@ -129,7 +129,7 @@ namespace Biomet.ViewModels
                     {
                         var payCheck = emp.Pay(dateDlg.PayDate.Value);
                         File.WriteAllText("forprinting.txt", payCheck.ToPrintFormat());
-                        Process.Start($"print /d:\"XP-58\" forprinting.txt");
+                        Process.Start("print /d:\"XP-58\" forprinting.txt");
                     }
                 }
             }

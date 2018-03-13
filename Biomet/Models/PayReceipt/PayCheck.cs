@@ -158,8 +158,10 @@ namespace Biomet.Models.PayReceipt
             sb.AppendLine("-----Your Payroll System-----");
             sb.AppendLine("-----------------------------");
             sb.AppendLine();
-            sb.AppendFormat("Date: {0}\n", PaymentDate.ToShortDateString());
+            sb.AppendFormat("Date: {0}", PaymentDate.ToShortDateString());
+            sb.AppendLine();
             sb.AppendFormat("Base Pay: {0}\n", BasePay);
+            sb.AppendLine();
             sb.AppendLine("-----Additions-----");
             foreach (var item in Additions)
             {
@@ -178,6 +180,9 @@ namespace Biomet.Models.PayReceipt
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine($"Total: {NetTotal}");
+            sb.AppendLine();
+            sb.AppendLine();
+            sb.AppendLine();
             return sb.ToString();
         }
     }
