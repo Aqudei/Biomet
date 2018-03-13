@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Biomet.Models.Entities;
-
+using Biomet.Models.PayReceipt;
 
 namespace Biomet.Models.Deductions
 {
@@ -35,7 +35,7 @@ namespace Biomet.Models.Deductions
                     throw new ArgumentException("Unknown salary range");
                 }
 
-                payCheck.Deductions.Add("SSS", row.Deduction / 4);
+                payCheck.Deduct("SSS", row.Deduction / 4);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Biomet.Models.Entities;
+using Biomet.Models.PayReceipt;
 using System;
 using System.Collections.Generic;
 using System.Linq;

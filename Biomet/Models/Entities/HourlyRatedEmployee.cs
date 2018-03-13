@@ -1,4 +1,5 @@
 ﻿using Biomet.Extentions;
+using Biomet.Models.PayReceipt;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Biomet.Models.Entities
             payCheck.StartOfPaymentPeriod = new DateTime(payCheck.PaymentDate.Year, payCheck.PaymentDate.Month, 1);
         }
 
-        protected override bool IsPayDay(DateTime date)
+        public override bool IsPayDay(DateTime date)
         {
             return date.IsLastDayOfMonth();
         }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Biomet.Models.Entities;
+using Biomet.Models.PayReceipt;
 
 namespace Biomet.Models.Deductions
 {
@@ -29,8 +30,6 @@ namespace Biomet.Models.Deductions
         public void ApplyDeductionToSalariedEmployee(SalariedEmployee employee, PayCheck payCheck)
         {
             if (!employee.HasPhilHealth) return;
-            if (payCheck.Deductions.ContainsKey(DEDUCTION_LABEL)) return;
-
 
             var row = _lookupTable
                 .FirstOrDefault(lookup => lookup.A <= employee.MonthlySalary && lookup.B >= employee.MonthlySalary);
@@ -40,7 +39,7 @@ namespace Biomet.Models.Deductions
                 throw new ArgumentException("Salary not found on the PhilHealth Table");
 
             var deduction = employee.MonthlySalary - row.Deduction;
-            payCheck.Deductions.Add(DEDUCTION_LABEL, deduction / 4);
+            payCheck.Deduct(DEDUCTION_LABEL, deduction / 4);
         }
 
         public void ApplyDeduction(Employee employee, PayCheck payCheck)
