@@ -3,18 +3,15 @@ using Biomet.Events;
 using Biomet.Models.Entities;
 using Biomet.Models.Persistence;
 using Caliburn.Micro;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using Biomet.Extentions;
 using Biomet.Models.Deductions;
-using Xceed.Words.NET;
+using System;
 
 namespace Biomet.ViewModels
 {
@@ -119,6 +116,7 @@ namespace Biomet.ViewModels
 
         public void GeneratePayChecks()
         {
+            var printFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "forprinting.txt");
             var dateDlg = new DateInputDialogViewModel();
             var rslt = _windowManager.ShowDialog(dateDlg);
             if (rslt.HasValue && rslt.Value)
@@ -128,8 +126,8 @@ namespace Biomet.ViewModels
                     if (emp.IsPayDay(dateDlg.PayDate.Value))
                     {
                         var payCheck = emp.Pay(dateDlg.PayDate.Value);
-                        File.WriteAllText("forprinting.txt", payCheck.ToPrintFormat());
-                        Process.Start("print /d:\"XP-58\" forprinting.txt");
+                        File.WriteAllText(printFile, payCheck.ToPrintFormat());
+                        Process.Start("print", string.Format("/D:\"\\\\%COMPUTERNAME%\\XP58\" \"{0}\"", printFile));
                     }
                 }
             }
