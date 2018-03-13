@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Biomet.Models;
 using Biomet.Models.Deductions;
+using Biomet.Models.PayReceipt;
 using Biomet.Models.Persistence;
 
 namespace Biomet.Services

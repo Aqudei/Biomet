@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biomet.Models.PayReceipt;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -67,7 +68,7 @@ namespace Biomet.Models.Entities
 
         protected abstract void OnDeterminePaymentPeriod(PayCheck payCheck);
         protected abstract void OnMakePayment(PayCheck payCheck);
-        protected abstract bool IsPayDay(DateTime date);
+        public abstract bool IsPayDay(DateTime date);
 
         public static Employee Create(string empType)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Biomet.Extentions;
+using Biomet.Models.PayReceipt;
 
 namespace Biomet.Models.Entities
 {
@@ -17,7 +18,7 @@ namespace Biomet.Models.Entities
             payCheck.BasePay = MonthlySalary / 4;
         }
 
-        protected override bool IsPayDay(DateTime date)
+        public override bool IsPayDay(DateTime date)
         {
             return date.DayOfWeek == DayOfWeek.Friday
                    && date.GetWeekOfMonth() < 5;

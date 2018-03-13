@@ -119,46 +119,19 @@ namespace Biomet.ViewModels
 
         public void GeneratePayChecks()
         {
-            var dlg = new DateInputDialogViewModel();
-            var rslt = _windowManager.ShowDialog(dlg);
-
-            if (!rslt.HasValue || !rslt.Value) return;
-
-            if (dlg.PayDate == null) return;
-
-            var payDate = dlg.PayDate.Value;
-
-            foreach (var employee in Employees)
+            var dateDlg = new DateInputDialogViewModel();
+            var rslt = _windowManager.ShowDialog(dateDlg);
+            if (rslt.HasValue && rslt.Value)
             {
-                var pc = employee.Pay(payDate.Date);
-                using (var docx = DocX.Load(Properties.Settings.Default.RECEIPT_FILE))
+                foreach (var emp in Employees)
                 {
-                    docx.ReplaceText("{DATE}", payDate.Date.ToShortDateString());
-                    docx.ReplaceText("{BASEPAY}", "" + pc.BasePay);
-
-
-                    _deductorService.ApplyDeduction(employee, pc);
-
-                    var sb = new StringBuilder();
-                    foreach (var deduction in pc.Deductions)
+                    if (emp.IsPayDay(dateDlg.PayDate.Value))
                     {
-                        sb.AppendLine(deduction.Key + "------------" + deduction.Value);
+                        var payCheck = emp.Pay(dateDlg.PayDate.Value);
+                        File.WriteAllText("forprinting.txt", payCheck.ToPrintFormat());
+                        Process.Start("print /d:\"XP-58\" forprinting.txt");
                     }
-                    docx.ReplaceText("{DEDUCTIONS}", sb.ToString());
-                    sb.Clear();
-                    foreach (var addition in pc.Additions)
-                    {
-                        sb.AppendLine(addition.Key + "------------" + addition.Value);
-                    }
-                    docx.ReplaceText("{ADDITIONS}", sb.ToString());
-                    
-                    var fname = Path.Combine(Properties.Settings.Default.RECEIPT_DIR,
-                        employee.LastName + "-" + employee.EmployeeNumber + "_" + payDate.Date.ToShortDateString()
-                            .Replace("/", "_") + ".docx");
-                    docx.SaveAs(fname);
                 }
-
-                Process.Start("explorer.exe ", Properties.Settings.Default.RECEIPT_DIR);
             }
         }
 
