@@ -15,9 +15,10 @@ namespace Biomet.Models.Deductions
         {
             _deductions.Add(new PhilHealthDeduction());
             _deductions.Add(new SSSDeduction());
+            _deductions.Add(new PagibigDeduction());
             _deductions.Add(new WitholdingTaxDeduction());
         }
-        
+
         public void ApplyDeduction(Employee employee, PayCheck payCheck)
         {
             foreach (var d in _deductions)

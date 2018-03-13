@@ -11,6 +11,7 @@ namespace Biomet.Models.Entities
     public class HourlyRatedEmployee : Employee
     {
         public double RatePerHour { get; set; }
+        public bool HasPagibig { get; internal set; }
 
         protected override void OnDeterminePaymentPeriod(PayCheck payCheck)
         {

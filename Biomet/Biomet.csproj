@@ -177,6 +177,7 @@
     <Compile Include="Models\Deductions\DeductorService.cs" />
     <Compile Include="Models\Deductions\DeductionTable.cs" />
     <Compile Include="Models\Deductions\IDeduction.cs" />
+    <Compile Include="Models\Deductions\PagibigDeduction.cs" />
     <Compile Include="Models\Deductions\WitholdingTaxDeduction.cs" />
     <Compile Include="Models\Deductions\SSSDeduction.cs" />
     <Compile Include="Models\Deductions\PhilHealthDeduction.cs" />

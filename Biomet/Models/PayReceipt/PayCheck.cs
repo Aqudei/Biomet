@@ -47,6 +47,9 @@ namespace Biomet.Models.PayReceipt
 
             }
         }
+
+
+
         [NotMapped]
         public IEnumerable<PayEntry> Additions
         {
@@ -95,6 +98,30 @@ namespace Biomet.Models.PayReceipt
             }
         }
 
+        public double WitholdingTax { get; set; }
+
+        public void SetTax(double tax)
+        {
+            WitholdingTax = tax;
+        }
+
+        internal double NetLessPremiums()
+        {
+            var total = BasePay;
+
+            foreach (var item in Additions)
+            {
+                total += item.Amount;
+            }
+
+            foreach (var item in Premiums)
+            {
+                total -= item.Amount;
+            }
+
+            return total;
+        }
+
         internal string _Deductions { get; set; }
         internal string _Additions { get; set; }
         internal string _Premiums { get; set; }
@@ -120,6 +147,8 @@ namespace Biomet.Models.PayReceipt
                     total -= item.Amount;
                 }
 
+                total -= WitholdingTax;
+
                 return total;
             }
         }
@@ -136,6 +165,20 @@ namespace Biomet.Models.PayReceipt
                 Amount = balue
             });
             Deductions = list;
+        }
+
+        internal void DeductPremium(string name, double balue)
+        {
+            var list = new List<PayEntry>(Premiums);
+            if (list.Any(l => l.Label == name))
+                throw new Exception($"Cannot deduct multiple {name} to paycheck.");
+
+            list.Add(new PayEntry
+            {
+                Label = name,
+                Amount = balue
+            });
+            Premiums = list;
         }
 
         public PayCheck(DateTime payDateTime) : this()
@@ -160,23 +203,25 @@ namespace Biomet.Models.PayReceipt
             sb.AppendLine();
             sb.AppendFormat("Date: {0}", PaymentDate.ToShortDateString());
             sb.AppendLine();
-            sb.AppendFormat("Base Pay: {0}\n", BasePay);
+            sb.AppendFormat("Base Pay: {0}", BasePay);
             sb.AppendLine();
             sb.AppendLine("-----Additions-----");
             foreach (var item in Additions)
             {
-                sb.AppendLine($"{item.Label}\t---{item.Amount}");
+                sb.AppendLine($"{item.Label}---{item.Amount}");
             }
             sb.AppendLine("-----Deductions-----");
             foreach (var item in Deductions)
             {
-                sb.AppendLine($"{item.Label}\t---{item.Amount}");
+                sb.AppendLine($"{item.Label}---{item.Amount}");
             }
             sb.AppendLine("-----Premiums-----");
             foreach (var item in Premiums)
             {
-                sb.AppendLine($"{item.Label}\t---{item.Amount}");
+                sb.AppendLine($"{item.Label}---{item.Amount}");
             }
+            sb.AppendLine("---Tax------------");
+            sb.AppendLine($"Witholding Tax---{WitholdingTax}");
             sb.AppendLine();
             sb.AppendLine();
             sb.AppendLine($"Total: {NetTotal}");

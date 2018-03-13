@@ -35,7 +35,7 @@ namespace Biomet.Models.Deductions
                     throw new ArgumentException("Unknown salary range");
                 }
 
-                payCheck.Deduct("SSS", row.Deduction / 4);
+                payCheck.DeductPremium("SSS", row.Deduction / 4);
             }
         }
     }

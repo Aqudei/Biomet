@@ -39,7 +39,7 @@ namespace Biomet.Models.Deductions
                 throw new ArgumentException("Salary not found on the PhilHealth Table");
 
             var deduction = employee.MonthlySalary - row.Deduction;
-            payCheck.Deduct(DEDUCTION_LABEL, deduction / 4);
+            payCheck.DeductPremium(DEDUCTION_LABEL, deduction / 4);
         }
 
         public void ApplyDeduction(Employee employee, PayCheck payCheck)

@@ -31,6 +31,7 @@ namespace Biomet.Models.Entities
 
         public bool HasPhilHealth { get; set; }
         public bool HasSSS { get; set; }
+        public bool HasPagibig { get; set; }
 
         public void ApplyDeductions(IDeduction deduction, PayCheck payCheck)
         {
