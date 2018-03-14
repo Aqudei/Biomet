@@ -30,5 +30,10 @@ namespace Biomet.ViewModels
         {
             ActivateItem(IoC.Get<ReportingViewModel>());
         }
+
+        public void GoHome()
+        {
+            ActivateItem(IoC.Get<EmployeesViewModel>());
+        }
     }
 }
