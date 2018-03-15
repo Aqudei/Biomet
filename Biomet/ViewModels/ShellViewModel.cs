@@ -4,13 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Biomet.Dialogs.ViewModels;
 
 namespace Biomet.ViewModels
 {
     class ShellViewModel : Conductor<object>
     {
-        public ShellViewModel()
+        private readonly IWindowManager _windowManager;
+
+        public ShellViewModel(IWindowManager windowManager)
         {
+            _windowManager = windowManager;
             OpenDTR();
 
             DisplayName = "Your Payroll System";
@@ -18,7 +22,12 @@ namespace Biomet.ViewModels
 
         public void OpenManager()
         {
-            ActivateItem(IoC.Get<EmployeesViewModel>());
+            var authDialog = new AuthenticationViewModel();
+            var rslt = _windowManager.ShowDialog(authDialog);
+            if (rslt.HasValue && rslt.Value)
+            {
+                ActivateItem(IoC.Get<EmployeesViewModel>());
+            }
         }
 
         public void OpenDTR()
